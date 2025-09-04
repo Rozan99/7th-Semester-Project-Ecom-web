@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hamro-Pasal Footer</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Georgia, serif;
+        background: linear-gradient(135deg, #d2b48c, #8b4513, #2f1b14);
+        min-height: 100vh;
+      }
+
+      .footer {
+        background: linear-gradient(135deg, #8b4513, #2f1b14, #1a0f0a);
+        color: #f5f5dc;
+        margin-top: 50px;
+        padding: 40px 0 20px;
+        box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: -15px;
+      }
+
+      .col {
+        flex: 1;
+        padding: 15px;
+        min-width: 250px;
+      }
+
+      .col-full {
+        flex: 100%;
+        padding: 15px;
+      }
+
+      .footer h5 {
+        color: #f5deb3;
+        font-size: 1.3em;
+        margin-bottom: 20px;
+        font-weight: 600;
+        border-bottom: 2px solid #d2b48c;
+        padding-bottom: 8px;
+        display: inline-block;
+      }
+
+      .footer p {
+        line-height: 1.6;
+        color: #f5f5dc;
+        margin-bottom: 15px;
+      }
+
+      .footer ul {
+        list-style: none;
+      }
+
+      .footer ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer ul li a {
+        color: #f5f5dc;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        padding: 5px 0;
+        display: inline-block;
+      }
+
+      .footer ul li a:hover {
+        color: #d2b48c;
+        transform: translateX(5px);
+      }
+
+      .footer address {
+        font-style: normal;
+        line-height: 1.8;
+        color: #f5f5dc;
+      }
+
+      .footer address strong {
+        color: #f5deb3;
+        font-size: 1.1em;
+      }
+
+      .icon {
+        color: #d2b48c;
+        margin-right: 8px;
+        width: 16px;
+        display: inline-block;
+      }
+
+      .divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #d2b48c, transparent);
+        margin: 30px 0 20px;
+      }
+
+      .copyright {
+        text-align: center;
+        color: #f5f5dc;
+        font-size: 0.9em;
+        margin: 0;
+      }
+
+      @media (max-width: 768px) {
+        .col {
+          min-width: 100%;
+          text-align: center;
+        }
+
+        .footer h5 {
+          font-size: 1.2em;
+        }
+
+        .container {
+          padding: 0 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <h5>About Us</h5>
+            <p>
+              Hello all we get this website to recommend you the products that
+              you might need!!
+            </p>
+          </div>
+          <div class="col">
+            <h5>Quick Links</h5>
+            <ul>
+              <li><a href="{{ url_for('about') }}">About</a></li>
+              <li><a href="{{ url_for('services') }}">Services</a></li>
+            </ul>
+          </div>
+          <div class="col">
+            <h5>Contact Us</h5>
+            <address>
+              <strong>Hamro-Pasal Co.</strong><br />
+              Dillibazar, Kathmandu<br />
+              Nepal<br /><br />
+              <span class="icon"></span> Phone: +977 9860931631<br />
+              <span class="icon"></span> Email: rojanghimire99@gmail.com
+            </address>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-full">
+            <div class="divider"></div>
+            <p class="copyright">© Hamro-pasal. All Rights Reserved.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

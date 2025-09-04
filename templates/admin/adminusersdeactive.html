@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Document</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #222629;
+        color: white;
+      }
+      .adminuser-container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .form-item {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: space-evenly;
+        margin: 0 auto;
+        box-shadow: 0 4px 8px rgba(252, 196, 206, 0.3);
+        margin-top: 15px;
+        border: 1px solid #474b4f;
+        border-radius: 8px;
+        width: 20vw;
+        text-align: center;
+        height: 50vh;
+        background-color: #6b6e70;
+      }
+      .submit {
+        margin-bottom: 30px;
+        border-radius: 8px;
+        padding: 7px;
+        background-color: #fcc4ce;
+        color: #222629;
+        border: 1px solid #f58f7c;
+      }
+      .submit:hover {
+        background-color: #f58f7c;
+        color: white;
+        transition: 0.4s;
+      }
+    </style>
+  </head>
+  <body>
+    {% include './admin/adminheader.html' %}
+    <div class="adminuser-container">
+      {% include 'admin/adminsidebar.html' %} {% if users %} {% for user in
+      users %}
+      <div class="form-item">
+        <h2>USER</h2>
+        <h3>ID: {{user.id}}</h3>
+        <h3>Username: {{user.username}}</h3>
+
+        <form action="/activateuser" class="each" method="post">
+          <input type="hidden" name="userid" value="{{user.id}}" />
+          <input type="hidden" name="username" value="{{user.username}}" />
+          <div>
+            <button class="submit" type="submit">Activate</button>
+          </div>
+        </form>
+      </div>
+
+      {% endfor %} {% else %}
+      <h1 style="margin-left: 300px">User not present!!</h1>
+      {% endif %}
+    </div>
+  </body>
+</html>

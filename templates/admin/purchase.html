@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Purchase History</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Georgia", serif;
+        background: linear-gradient(
+          135deg,
+          #222629 0%,
+          #474b4f 50%,
+          #6b6e70 100%
+        );
+        color: #fcc4ce;
+        min-height: 100vh;
+        line-height: 1.6;
+      }
+
+      .history {
+        display: flex;
+        gap: 20px;
+        width: 100%;
+        min-height: 100vh;
+      }
+
+      .link a {
+        margin-left: 45%;
+        text-decoration: none;
+        color: #fcc4ce;
+        font-size: 1.2rem;
+        transition: color 0.3s ease;
+      }
+
+      .link a:hover {
+        color: #f58f7c;
+      }
+
+      table {
+        text-align: center;
+        font-size: 1.02rem;
+      }
+
+      .purchase {
+        margin-left: 100px;
+        margin-top: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 25px;
+        width: 75%;
+        padding: 20px;
+      }
+
+      .purchase-info {
+        background: rgba(107, 110, 112, 0.1);
+        backdrop-filter: blur(10px);
+        border: 2px solid #474b4f;
+        border-radius: 16px;
+        padding: 25px;
+        width: 450px;
+        box-shadow: 0 8px 32px rgba(34, 38, 41, 0.3),
+          0 4px 16px rgba(71, 75, 79, 0.2),
+          inset 0 1px 0 rgba(252, 196, 206, 0.1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        animation: slideInUp 0.6s ease-out;
+      }
+
+      .purchase-info::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #f58f7c, transparent);
+        transition: left 0.6s ease;
+      }
+
+      .purchase-info:hover::before {
+        left: 100%;
+      }
+
+      .purchase-info:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 48px rgba(34, 38, 41, 0.4),
+          0 8px 24px rgba(71, 75, 79, 0.3),
+          inset 0 1px 0 rgba(252, 196, 206, 0.2);
+        border-color: #f58f7c;
+      }
+
+      .purchase-info p {
+        margin-bottom: 12px;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .purchase-info p:last-child {
+        margin-bottom: 0;
+      }
+
+      .purchase-info strong {
+        color: #f58f7c;
+        font-weight: 600;
+        min-width: 140px;
+        display: inline-block;
+      }
+
+      .no-data {
+        text-align: center;
+        color: #fcc4ce;
+        font-size: 1.5rem;
+        margin-top: 100px;
+        padding: 40px;
+        background: rgba(107, 110, 112, 0.1);
+        backdrop-filter: blur(10px);
+        border: 2px solid #474b4f;
+        border-radius: 16px;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      @keyframes slideInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .purchase-info:nth-child(even) {
+        animation-delay: 0.1s;
+      }
+
+      .purchase-info:nth-child(3n) {
+        animation-delay: 0.2s;
+      }
+
+      @media (max-width: 768px) {
+        .purchase {
+          margin-left: 20px;
+          width: calc(100% - 40px);
+        }
+
+        .purchase-info {
+          width: 100%;
+          max-width: 400px;
+        }
+
+        .history {
+          flex-direction: column;
+        }
+      }
+
+      /* Ripple effect for interactive elements */
+      .purchase-info {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .purchase-info::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(245, 143, 124, 0.1);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+      }
+
+      .purchase-info:active::after {
+        width: 300px;
+        height: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    {% include 'admin/adminheader.html' %} {% if results %}
+    <div class="history">
+      {% include 'admin/adminsidebar.html' %}
+      <div class="purchase">
+        {% for datas in results %} {% for values in names %} {% if datas.userid
+        == values.id %}
+        <div class="purchase-info">
+          <p><strong>Username:</strong> {{values.username}}</p>
+          <p><strong>User ID:</strong> {{datas.userid}}</p>
+          <p><strong>Purchase ID:</strong> {{datas.purchaseid}}</p>
+          <p><strong>Product ID:</strong> {{datas.productid}}</p>
+          <p><strong>Product Name:</strong> {{datas.productname}}</p>
+          <p><strong>Quantity:</strong> {{datas.quantity}}</p>
+          <p><strong>Total Price:</strong> {{datas.productprice}}</p>
+          <p><strong>Purchased on:</strong> {{datas.purchaseTime}}</p>
+        </div>
+        {% endif %} {% endfor %} {% endfor %}
+      </div>
+    </div>
+    {% else %}
+    <div class="no-data">
+      <h2>No purchase data available</h2>
+    </div>
+    {% endif %}
+  </body>
+</html>

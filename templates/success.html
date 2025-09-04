@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Purchase Successful - Thank You!</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(
+          135deg,
+          #f5f5dc 0%,
+          #deb887 25%,
+          #8b7355 75%,
+          #2f2f2f 100%
+        );
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        flex: 1;
+      }
+
+      .success-card {
+        background: rgba(245, 245, 220, 0.95);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(222, 184, 135, 0.3);
+      }
+
+      .success-header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .success-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #deb887, #8b7355);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        animation: pulse 2s infinite;
+      }
+
+      .checkmark {
+        width: 40px;
+        height: 40px;
+        border: 3px solid #f5f5dc;
+        border-radius: 50%;
+        position: relative;
+      }
+
+      .checkmark::after {
+        content: "";
+        position: absolute;
+        left: 12px;
+        top: 6px;
+        width: 8px;
+        height: 16px;
+        border: solid #f5f5dc;
+        border-width: 0 3px 3px 0;
+        transform: rotate(45deg);
+      }
+
+      .success-title {
+        color: #2f2f2f;
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .success-subtitle {
+        color: #8b7355;
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+      }
+
+      .purchase-details {
+        display: flex;
+        gap: 30px;
+        margin-bottom: 40px;
+        align-items: center;
+      }
+
+      .product-image {
+        flex-shrink: 0;
+      }
+
+      .product-image img {
+        width: 200px;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        border: 2px solid rgba(222, 184, 135, 0.5);
+      }
+
+      .purchase-info {
+        flex: 1;
+      }
+
+      .info-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(139, 115, 85, 0.2);
+      }
+
+      .info-item:last-child {
+        border-bottom: none;
+      }
+
+      .info-label {
+        font-weight: bold;
+        color: #2f2f2f;
+        font-size: 1.1rem;
+      }
+
+      .info-value {
+        color: #8b7355;
+        font-size: 1.1rem;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 15px 30px;
+        border: none;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: bold;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        min-width: 150px;
+        text-align: center;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #deb887, #8b7355);
+        color: #f5f5dc;
+        box-shadow: 0 5px 15px rgba(139, 115, 85, 0.3);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(139, 115, 85, 0.4);
+        color: #f5f5dc;
+        text-decoration: none;
+      }
+
+      .btn-secondary {
+        background: rgba(245, 245, 220, 0.8);
+        color: #2f2f2f;
+        border: 2px solid #deb887;
+      }
+
+      .btn-secondary:hover {
+        background: #deb887;
+        color: #f5f5dc;
+        transform: translateY(-2px);
+        text-decoration: none;
+      }
+
+      .no-purchase {
+        text-align: center;
+        padding: 60px 20px;
+      }
+
+      .no-purchase h2 {
+        color: #8b7355;
+        font-size: 2rem;
+        margin-bottom: 20px;
+      }
+
+      .no-purchase p {
+        color: #2f2f2f;
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .purchase-details {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .success-title {
+          font-size: 2rem;
+        }
+
+        .action-buttons {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .btn {
+          width: 100%;
+          max-width: 250px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    {% include 'heads.html' %}
+
+    <div class="container">
+      {% if esewa_info %}
+      <div class="success-card">
+        <div class="success-header">
+          <div class="success-icon">
+            <div class="checkmark"></div>
+          </div>
+          <h1 class="success-title">Purchase Successful!</h1>
+          <p class="success-subtitle">
+            Thank you for your order. Your purchase has been confirmed.
+          </p>
+        </div>
+
+        <div class="purchase-details">
+          <div class="product-image">
+            <img src="{{esewa_info.image}}" alt="{{esewa_info.pname}}" />
+          </div>
+
+          <div class="purchase-info">
+            <div class="info-item">
+              <span class="info-label">Order ID:</span>
+              <span class="info-value">{{esewa_info.pid}}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Product Name:</span>
+              <span class="info-value">{{esewa_info.pname}}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Quantity:</span>
+              <span class="info-value">{{esewa_info.quantity}}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Total Price:</span>
+              <span class="info-value">{{esewa_info.price}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <a href="index" class="btn btn-primary">Continue Shopping</a>
+          <a href="cart" class="btn btn-secondary">View Cart</a>
+          <a href="detail" class="btn btn-secondary">Order History</a>
+        </div>
+      </div>
+      {% else %}
+      <div class="success-card">
+        <div class="no-purchase">
+          <h2>No Purchase Information</h2>
+          <p>
+            We couldn't find your purchase details. Please try again or contact
+            support.
+          </p>
+          <a href="index" class="btn btn-primary">Back to Store</a>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+    {% include 'foots.html' %}
+  </body>
+</html>

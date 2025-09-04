@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Add Product</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(135deg, #222629, #474b4f, #6b6e70);
+        color: #fff;
+      }
+
+      .addproduct {
+        display: flex;
+        flex: 1;
+      }
+
+      /* Sidebar placeholder */
+      .sidebar {
+        width: 220px;
+        background: rgba(34, 38, 41, 0.95);
+        padding: 20px;
+        border-right: 2px solid rgba(255, 255, 255, 0.1);
+      }
+
+      /* Form Container */
+      .forms {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 40px;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(8px);
+        border-radius: 15px;
+        padding: 40px 30px;
+        width: 500px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        animation: fadeIn 0.8s ease-in-out;
+      }
+
+      form label {
+        font-size: 0.95rem;
+        margin-bottom: 6px;
+        color: #fcc4ce;
+        font-weight: 500;
+      }
+
+      form input {
+        padding: 10px;
+        border: none;
+        outline: none;
+        border-radius: 8px;
+        margin-bottom: 18px;
+        font-size: 0.95rem;
+        background: #fff;
+        color: #222629;
+      }
+
+      .submit {
+        background: linear-gradient(135deg, #fcc4ce, #f58f7c);
+        border: none;
+        padding: 12px;
+        font-size: 1rem;
+        border-radius: 10px;
+        cursor: pointer;
+        color: #222629;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        align-self: center;
+        width: 150px;
+      }
+
+      .submit:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 15px rgba(245, 143, 124, 0.6);
+      }
+
+      /* Fade-in animation */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Message Styling */
+      #messages {
+        margin: 20px auto;
+        padding: 12px 20px;
+        width: fit-content;
+        border-radius: 8px;
+        font-weight: bold;
+        animation: fadeIn 0.5s ease;
+        background: rgba(255, 0, 0, 0.1);
+        color: #ff6b6b;
+      }
+    </style>
+  </head>
+  <body>
+    {% include 'admin/adminheader.html' %} {% if message %}
+    <h1 id="messages">{{message}}</h1>
+    {% endif %}
+
+    <div class="addproduct">
+      {% include 'admin/adminsidebar.html' %}
+
+      <div class="forms">
+        <form action="/insert" method="post">
+          <label for="id">Product ID</label>
+          <input type="text" id="id" name="id" />
+
+          <label for="name">Product Name</label>
+          <input type="text" id="name" name="name" />
+
+          <label for="reviewcount">Review Count</label>
+          <input type="number" id="reviewcount" name="reviewcount" min="0" />
+
+          <label for="brand">Product Brand</label>
+          <input type="text" id="brand" name="brand" />
+
+          <label for="imageurl">Image URL</label>
+          <input type="text" id="imageurl" name="imageurl" />
+
+          <label for="rating">Rating</label>
+          <input type="number" id="rating" name="rating" min="0" step="0.5" />
+
+          <label for="description">Description</label>
+          <input type="text" id="description" name="description" />
+
+          <label for="category">Category</label>
+          <input type="text" id="category" name="category" />
+
+          <label for="price">Price</label>
+          <input type="number" id="price" name="price" min="100" step="0.5" />
+
+          <button type="submit" class="submit">Add Product</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(function () {
+          const messageElement = document.getElementById("messages");
+          if (messageElement) {
+            messageElement.style.display = "none";
+          }
+        }, 2000);
+      });
+    </script>
+  </body>
+</html>

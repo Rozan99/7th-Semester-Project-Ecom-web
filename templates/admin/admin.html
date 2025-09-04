@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Dashboard</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(135deg, #222629, #474b4f, #6b6e70);
+        color: #fff;
+      }
+
+      .admin {
+        display: flex;
+        flex: 1;
+      }
+
+      /* Sidebar Placeholder (adminsidebar.html) */
+      .sidebar {
+        width: 240px;
+        background: rgba(34, 38, 41, 0.95);
+        padding: 20px;
+        border-right: 2px solid rgba(255, 255, 255, 0.1);
+      }
+
+      /* Main Content */
+      .admin-body {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 30px;
+        position: relative;
+      }
+
+      .main-content {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(8px);
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        animation: fadeIn 0.8s ease-in-out;
+        margin-right: 260px; /* leave space for updates-view */
+      }
+
+      /* Updates Panel */
+      .updates-view {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        width: 250px;
+        background: linear-gradient(135deg, #fcc4ce, #f58f7c);
+        color: #222629;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        animation: slideIn 0.7s ease-in-out;
+      }
+
+      /* Messages */
+      #messages {
+        margin: 20px auto;
+        padding: 12px 20px;
+        width: fit-content;
+        border-radius: 8px;
+        font-weight: bold;
+        animation: fadeIn 0.5s ease;
+        background: rgba(255, 0, 0, 0.1);
+        color: #ff6b6b;
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    {% include './admin/adminheader.html' %} {% if signin_message %}
+    <h1 id="messages">{{signin_message}}</h1>
+    {% endif %}
+
+    <div class="admin">
+      {% include './admin/adminsidebar.html' %}
+
+      <div class="admin-body">
+        <div class="main-content">{% include './admin/adminbody.html' %}</div>
+
+        <div class="updates-view">{% include './admin/viewupdate.html' %}</div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(function () {
+          const messageElement = document.getElementById("messages");
+          if (messageElement) {
+            messageElement.style.display = "none";
+          }
+        }, 2000);
+      });
+    </script>
+  </body>
+</html>

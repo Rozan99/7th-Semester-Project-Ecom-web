@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: linear-gradient(
+          135deg,
+          #222629 0%,
+          #474b4f 50%,
+          #6b6e70 100%
+        );
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Georgia", serif;
+      }
+
+      .link {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(252, 196, 206, 0.3);
+        border-radius: 15px;
+        padding: 20px 40px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .link:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        border-color: rgba(252, 196, 206, 0.5);
+      }
+
+      .link a {
+        color: #fcc4ce;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        display: inline-block;
+      }
+
+      .link a:hover {
+        color: #f58f7c;
+        transform: scale(1.05);
+      }
+
+      .link a:active {
+        transform: scale(0.98);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="link">
+      <a href="/admin">Go Back</a>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Updated - Admin Panel</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Georgia", serif;
+        background: linear-gradient(
+          135deg,
+          #222629 0%,
+          #474b4f 50%,
+          #6b6e70 100%
+        );
+        min-height: 100vh;
+        color: #fcc4ce;
+        overflow-x: hidden;
+      }
+
+      .body {
+        display: flex;
+        min-height: 100vh;
+        position: relative;
+      }
+
+      .main-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 25%;
+        flex: 1;
+        padding: 2rem;
+        animation: fadeInUp 0.8s ease-out;
+      }
+
+      .success-container {
+        background: rgba(107, 110, 112, 0.1);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(252, 196, 206, 0.2);
+        border-radius: 20px;
+        padding: 3rem 2rem;
+        text-align: center;
+        box-shadow: 0 20px 40px rgba(34, 38, 41, 0.3),
+          inset 0 1px 0 rgba(252, 196, 206, 0.1);
+        position: relative;
+        overflow: hidden;
+        max-width: 500px;
+        width: 100%;
+      }
+
+      .success-container::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+          45deg,
+          transparent,
+          rgba(252, 196, 206, 0.05),
+          transparent
+        );
+        animation: shimmer 3s infinite;
+        pointer-events: none;
+      }
+
+      .success-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 1.5rem;
+        background: linear-gradient(135deg, #fcc4ce, #f58f7c);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: bounceIn 0.6s ease-out 0.3s both;
+        box-shadow: 0 10px 30px rgba(245, 143, 124, 0.3);
+      }
+
+      .success-icon::after {
+        content: "✓";
+        font-size: 2.5rem;
+        color: #222629;
+        font-weight: bold;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #fcc4ce, #f58f7c);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1rem;
+        animation: slideInUp 0.6s ease-out 0.5s both;
+        line-height: 1.2;
+      }
+
+      .success-message {
+        font-size: 1.1rem;
+        color: rgba(252, 196, 206, 0.8);
+        margin-bottom: 2rem;
+        animation: slideInUp 0.6s ease-out 0.7s both;
+      }
+
+      .back-button {
+        display: inline-block;
+        padding: 12px 30px;
+        background: linear-gradient(135deg, #f58f7c, #fcc4ce);
+        color: #222629;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(245, 143, 124, 0.3);
+        animation: slideInUp 0.6s ease-out 0.9s both;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .back-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(245, 143, 124, 0.4);
+      }
+
+      .back-button::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: all 0.5s ease;
+      }
+
+      .back-button:active::before {
+        width: 300px;
+        height: 300px;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes bounceIn {
+        0% {
+          opacity: 0;
+          transform: scale(0.3);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        70% {
+          transform: scale(0.9);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes slideInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%) translateY(-100%) rotate(45deg);
+        }
+        100% {
+          transform: translateX(100%) translateY(100%) rotate(45deg);
+        }
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .main-content {
+          margin-left: 0;
+          padding: 1rem;
+        }
+
+        .success-container {
+          padding: 2rem 1.5rem;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        .success-icon {
+          width: 60px;
+          height: 60px;
+        }
+
+        .success-icon::after {
+          font-size: 2rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        h1 {
+          font-size: 1.8rem;
+        }
+
+        .success-message {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="body">
+      {% include 'admin/adminsidebar.html' %}
+      <div class="main-content">
+        <div class="success-container">
+          <div class="success-icon"></div>
+          <h1>Product Updated!</h1>
+          <p class="success-message">
+            Your product has been successfully updated and is now live.
+          </p>
+          <a href="javascript:history.back()" class="back-button">Go Back</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

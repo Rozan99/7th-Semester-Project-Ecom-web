@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4//css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+      }
+
+      .container {
+        margin-top: 50px;
+      }
+      .nav-link:hover {
+        color: red !important;
+      }
+      .nav-link.btn {
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    {% include 'heads.html' %} {% if message %}
+    <h1 id="messages" style="color: red; margin-left: 45%; margin-bottom: 10px">
+      {{message}} {{value}}
+    </h1>
+    {% endif %}
+
+    <h1
+      style="margin-left: 45%; margin-bottom: 30px; margin-top: 30px"
+      color="#fff2beff"
+    >
+      Top Trending
+    </h1>
+
+    {% include 'signup.html' %} {% include 'signin.html' %} {% include
+    'fetch.html' %} {% include 'foots.html' %}
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      setTimeout(function () {
+        const messageElement = document.getElementById("message");
+        if (messageElement) {
+          messageElement.style.display = "none";
+        }
+      }, 2000);
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      setTimeout(function () {
+        const messageElement = document.getElementById("messages");
+        if (messageElement) {
+          messageElement.style.display = "none";
+        }
+      }, 2000);
+    });
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://code.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</html>

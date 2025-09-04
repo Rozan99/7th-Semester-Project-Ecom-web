@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Checkout - Hamro Pasal</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Georgia", serif;
+        background: linear-gradient(
+          135deg,
+          #8b4513 0%,
+          #a0522d 25%,
+          #654321 75%,
+          #2f1b14 100%
+        );
+        min-height: 100vh;
+        padding: 20px;
+        line-height: 1.6;
+      }
+      .button-link {
+        margin-bottom: 20px;
+      }
+      .button-link a {
+        text-decoration: none;
+        font-size: 1rem;
+        color: #f5f5dc;
+        background: rgba(34, 38, 41, 0.7);
+        padding: 8px 15px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+      .button-link a:hover {
+        background: rgba(34, 38, 41, 0.9);
+        color: #fcc4ce;
+      }
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        animation: fadeIn 0.8s ease-out;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      h1 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+        color: #f5f5dc;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        font-weight: 300;
+        letter-spacing: 1px;
+      }
+      .checkout-card {
+        background: linear-gradient(145deg, #f5f5dc, #fff8dc);
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2),
+          inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        overflow: hidden;
+        margin-bottom: 30px;
+        transition: all 0.3s ease;
+      }
+      .checkout-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25),
+          inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      }
+      .checkout-info {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        padding: 40px;
+        gap: 30px;
+      }
+      .checkout-image {
+        flex: 1;
+        text-align: center;
+        min-width: 300px;
+      }
+      .checkout-image img {
+        height: 350px;
+        width: 350px;
+        border-radius: 15px;
+        object-fit: cover;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        border: 3px solid rgba(139, 69, 19, 0.2);
+      }
+      .checkout-image img:hover {
+        transform: scale(1.05);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+      }
+      .checkout-product {
+        flex: 1;
+        min-width: 300px;
+      }
+      .product-detail {
+        background: rgba(139, 69, 19, 0.1);
+        padding: 20px;
+        border-radius: 12px;
+        margin-bottom: 15px;
+        border-left: 4px solid #8b4513;
+        transition: all 0.3s ease;
+      }
+      .product-detail:hover {
+        background: rgba(139, 69, 19, 0.15);
+        transform: translateX(5px);
+      }
+      .product-detail p {
+        font-size: 1.1rem;
+        color: #654321;
+        margin: 0;
+        font-weight: 500;
+      }
+      .product-detail strong {
+        color: #8b4513;
+        font-weight: 600;
+      }
+      .checkout-form {
+        text-align: center;
+        padding: 30px 40px;
+        background: linear-gradient(145deg, #fff8dc, #f5f5dc);
+        border-top: 1px solid rgba(139, 69, 19, 0.2);
+      }
+      .checkout-button {
+        background: linear-gradient(135deg, #8b4513, #a0522d);
+        color: #f5f5dc;
+        padding: 18px 40px;
+        font-size: 1.2rem;
+        border: none;
+        cursor: pointer;
+        border-radius: 50px;
+        font-family: "Georgia", serif;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        box-shadow: 0 8px 20px rgba(139, 69, 19, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .checkout-button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+      .checkout-button:hover::before {
+        left: 100%;
+      }
+      .checkout-button:hover {
+        background: linear-gradient(135deg, #a0522d, #cd853f);
+        transform: translateY(-2px);
+      }
+      .checkout-button:active {
+        transform: translateY(0);
+      }
+      .checkout-button.loading {
+        pointer-events: none;
+        opacity: 0.8;
+      }
+      .checkout-button.loading::after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        margin: auto;
+        border: 2px solid transparent;
+        border-top-color: #f5f5dc;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      .security-badge {
+        margin-top: 20px;
+        padding: 15px;
+        background: rgba(139, 69, 19, 0.1);
+        border-radius: 10px;
+        color: #654321;
+        font-size: 0.9rem;
+        border: 1px solid rgba(139, 69, 19, 0.2);
+      }
+      .security-badge::before {
+        content: "🔒 ";
+        margin-right: 5px;
+      }
+      @media (max-width: 768px) {
+        .checkout-info {
+          flex-direction: column;
+          padding: 30px 20px;
+        }
+        .checkout-image,
+        .checkout-product {
+          min-width: 100%;
+        }
+        .checkout-image img {
+          height: 280px;
+          width: 280px;
+        }
+        h1 {
+          font-size: 2rem;
+          margin-bottom: 30px;
+        }
+        .checkout-form {
+          padding: 25px 20px;
+        }
+      }
+      @media (max-width: 480px) {
+        body {
+          padding: 10px;
+        }
+        .checkout-image img {
+          height: 220px;
+          width: 220px;
+        }
+        .checkout-button {
+          padding: 15px 30px;
+          font-size: 1.1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="button-link">
+        <a href="{{ url_for('index') }}"
+          ><i class="fa-solid fa-arrow-left"></i> Buy More</a
+        >
+      </div>
+
+      <h1>Secure Checkout</h1>
+
+      <div class="checkout-card">
+        <div class="checkout-info">
+          <div class="checkout-image">
+            <img src="{{ esewa_info.image }}" alt="{{ esewa_info.pname }}" />
+          </div>
+          <div class="checkout-product">
+            <div class="product-detail">
+              <p><strong>Product Name:</strong> {{ esewa_info.pname }}</p>
+            </div>
+            <div class="product-detail">
+              <p><strong>Quantity:</strong> {{ esewa_info.quantity }}</p>
+            </div>
+            <div class="product-detail">
+              <p><strong>Total Price:</strong> Rs. {{ esewa_info.price }}</p>
+            </div>
+          </div>
+        </div>
+
+        <form
+          class="checkout-form"
+          action="https://rc-epay.esewa.com.np/api/epay/main/v2/form"
+          method="POST"
+          id="paymentForm"
+        >
+          <input type="hidden" name="amount" value="{{ esewa_info.amount }}" />
+          <input type="hidden" name="tax_amount" value="0" />
+          <input
+            type="hidden"
+            name="total_amount"
+            value="{{ esewa_info.total_amount }}"
+          />
+          <input
+            type="hidden"
+            name="transaction_uuid"
+            value="{{ esewa_info.transaction_uuid }}"
+          />
+          <input
+            type="hidden"
+            name="product_code"
+            value="{{ esewa_info.product_code }}"
+          />
+          <input type="hidden" name="product_service_charge" value="0" />
+          <input type="hidden" name="product_delivery_charge" value="0" />
+          <input
+            type="hidden"
+            name="success_url"
+            value="{{ esewa_info.success_url }}"
+          />
+          <input
+            type="hidden"
+            name="failure_url"
+            value="{{ esewa_info.failure_url }}"
+          />
+          <input
+            type="hidden"
+            name="signed_field_names"
+            value="{{ esewa_info.signed_field_names }}"
+          />
+          <input
+            type="hidden"
+            name="signature"
+            value="{{ esewa_info.signature }}"
+          />
+
+          <button class="checkout-button" type="submit" id="paymentBtn">
+            Proceed to Payment
+          </button>
+          <div class="security-badge">
+            Your payment is secured with eSewa's advanced encryption
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const paymentBtn = document.getElementById("paymentBtn");
+        const paymentForm = document.getElementById("paymentForm");
+        paymentForm.addEventListener("submit", function () {
+          paymentBtn.classList.add("loading");
+          paymentBtn.textContent = "Processing...";
+        });
+        document.documentElement.style.scrollBehavior = "smooth";
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" && e.target === paymentBtn)
+            paymentForm.submit();
+        });
+      });
+    </script>
+  </body>
+</html>

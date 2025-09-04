@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Category Sidebar</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Georgia", serif;
+        background: linear-gradient(
+          135deg,
+          #8b4513 0%,
+          #a0522d 25%,
+          #2f1b14 75%,
+          #000000 100%
+        );
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .categories {
+        display: flex;
+        padding: 20px;
+      }
+
+      .buttons {
+        flex: 0.5;
+        height: auto;
+        background: rgba(245, 245, 220, 0.95);
+        border-radius: 20px;
+        margin-right: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        position: sticky;
+        top: 10vh;
+        padding: 30px 20px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(139, 69, 19, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .buttons:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      }
+
+      .buttons h5 {
+        color: #2f1b14;
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 25px;
+        text-align: center;
+        letter-spacing: 1px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      form ul {
+        list-style-type: none;
+        width: 100%;
+      }
+
+      form ul li {
+        margin-bottom: 15px;
+        transform: translateX(0);
+        transition: transform 0.3s ease;
+      }
+
+      form ul li:hover {
+        transform: translateX(10px);
+      }
+
+      .buttons button {
+        width: 100%;
+        min-width: 160px;
+        border-radius: 15px;
+        padding: 15px 20px;
+        border: none;
+        font-family: "Georgia", serif;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .buttons button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        transition: left 0.6s;
+      }
+
+      .buttons button:hover::before {
+        left: 100%;
+      }
+
+      .buttons button:active {
+        transform: scale(0.95);
+      }
+
+      /* Modern button styling with brownish gradient theme */
+      .all {
+        background: linear-gradient(135deg, #8b4513, #a0522d);
+        color: #f5f5dc;
+      }
+      .all:hover {
+        background: linear-gradient(135deg, #a0522d, #cd853f);
+        color: #ffffff;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(139, 69, 19, 0.4);
+      }
+
+      .personal {
+        background: linear-gradient(135deg, #a0522d, #cd853f);
+        color: #f5f5dc;
+      }
+      .personal:hover {
+        background: linear-gradient(135deg, #cd853f, #deb887);
+        color: #2f1b14;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(160, 82, 45, 0.4);
+      }
+
+      .beauty {
+        background: linear-gradient(135deg, #cd853f, #deb887);
+        color: #2f1b14;
+      }
+      .beauty:hover {
+        background: linear-gradient(135deg, #deb887, #f5deb3);
+        color: #8b4513;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(205, 133, 63, 0.4);
+      }
+
+      .care {
+        background: linear-gradient(135deg, #deb887, #f5deb3);
+        color: #8b4513;
+      }
+      .care:hover {
+        background: linear-gradient(135deg, #f5deb3, #fff8dc);
+        color: #a0522d;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(222, 184, 135, 0.4);
+      }
+
+      .premium {
+        background: linear-gradient(135deg, #2f1b14, #8b4513);
+        color: #f5f5dc;
+        border: 2px solid #cd853f;
+      }
+      .premium:hover {
+        background: linear-gradient(135deg, #8b4513, #a0522d);
+        color: #ffffff;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(47, 27, 20, 0.5);
+        border-color: #deb887;
+      }
+
+      /* Responsive design for mobile devices */
+      @media (max-width: 768px) {
+        .categories {
+          padding: 10px;
+        }
+
+        .buttons {
+          flex: 1;
+          margin-right: 0;
+          padding: 20px 15px;
+          position: relative;
+          top: 0;
+        }
+
+        .buttons button {
+          min-width: 120px;
+          padding: 12px 15px;
+          font-size: 14px;
+        }
+
+        .buttons h5 {
+          font-size: 20px;
+          margin-bottom: 20px;
+        }
+      }
+
+      /* Loading animation for button clicks */
+      .buttons button.loading {
+        pointer-events: none;
+        opacity: 0.7;
+      }
+
+      .buttons button.loading::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        margin: -10px 0 0 -10px;
+        border: 2px solid transparent;
+        border-top: 2px solid currentColor;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="categories">
+      <div class="buttons">
+        <form action="showinfo" method="Post">
+          <h5>Category</h5>
+          <ul>
+            <li>
+              <button type="submit" name="category" value="all" class="all">
+                All Products
+              </button>
+            </li>
+            <li>
+              <button
+                type="submit"
+                name="category"
+                value="personal"
+                class="personal"
+              >
+                Personal Care
+              </button>
+            </li>
+            <li>
+              <button
+                type="submit"
+                name="category"
+                value="beauty"
+                class="beauty"
+              >
+                Beauty
+              </button>
+            </li>
+            <li>
+              <button type="submit" name="category" value="care" class="care">
+                Health Care
+              </button>
+            </li>
+            <li>
+              <button
+                type="submit"
+                name="category"
+                value="premium"
+                class="premium"
+              >
+                Premium
+              </button>
+            </li>
+          </ul>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const buttons = document.querySelectorAll(".buttons button");
+
+        buttons.forEach((button) => {
+          button.addEventListener("click", function (e) {
+            // Add loading state
+            this.classList.add("loading");
+
+            // Create ripple effect
+            const ripple = document.createElement("span");
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+
+            ripple.style.cssText = `
+                        position: absolute;
+                        width: ${size}px;
+                        height: ${size}px;
+                        left: ${x}px;
+                        top: ${y}px;
+                        background: rgba(255, 255, 255, 0.3);
+                        border-radius: 50%;
+                        transform: scale(0);
+                        animation: ripple 0.6s ease-out;
+                        pointer-events: none;
+                    `;
+
+            this.appendChild(ripple);
+
+            setTimeout(() => {
+              ripple.remove();
+            }, 600);
+          });
+
+          // Add hover sound effect (visual feedback)
+          button.addEventListener("mouseenter", function () {
+            this.style.transform = "translateY(-3px) scale(1.02)";
+          });
+
+          button.addEventListener("mouseleave", function () {
+            this.style.transform = "translateY(0) scale(1)";
+          });
+        });
+      });
+
+      const style = document.createElement("style");
+      style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>

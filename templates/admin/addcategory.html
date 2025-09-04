@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Add Category</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(135deg, #222629, #474b4f, #6b6e70);
+        color: #fff;
+      }
+      .addcategory {
+        display: flex;
+        flex: 1;
+      }
+      .sidebar {
+        width: 220px;
+        background: rgba(34, 38, 41, 0.95);
+        padding: 20px;
+        border-right: 2px solid rgba(255, 255, 255, 0.1);
+      }
+      .forms {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(8px);
+        border-radius: 15px;
+        padding: 40px 30px;
+        width: 350px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        animation: fadeIn 0.8s ease-in-out;
+      }
+      form label {
+        font-size: 1rem;
+        margin-bottom: 8px;
+        color: #fcc4ce;
+      }
+      form input {
+        padding: 10px;
+        border: none;
+        outline: none;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        font-size: 1rem;
+        background: #fff;
+        color: #222629;
+      }
+      .submit {
+        background: linear-gradient(135deg, #fcc4ce, #f58f7c);
+        border: none;
+        padding: 12px;
+        font-size: 1rem;
+        border-radius: 10px;
+        cursor: pointer;
+        color: #222629;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+      .submit:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 15px rgba(245, 143, 124, 0.6);
+      }
+
+      /* Enhanced message styles */
+      .message {
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 15px;
+        padding: 12px 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        animation: fadeIn 0.8s ease-in-out;
+      }
+      .success {
+        background: linear-gradient(135deg, #4fff4f, #28a745);
+        color: #222629;
+      }
+      .error {
+        background: linear-gradient(135deg, #ff5c5c, #d32f2f);
+        color: #fff;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    {% include 'admin/adminheader.html' %}
+
+    <div class="addcategory">
+      {% include 'admin/adminsidebar.html' %}
+
+      <div class="forms">
+        <!-- Display Flask messages here -->
+        {% if message %}
+        <div
+          class="message {% if 'Error' in message or 'cannot' in message %}error{% else %}success{% endif %}"
+        >
+          {{ message }}
+        </div>
+        {% endif %}
+
+        <form action="/insertcategory" method="post">
+          <label for="name">Category Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Enter category name"
+            required
+          />
+          <button type="submit" class="submit">Add Category</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

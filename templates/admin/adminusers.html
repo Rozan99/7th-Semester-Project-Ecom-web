@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Users</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #222629, #474b4f, #6b6e70);
+        color: white;
+      }
+
+      .adminuser-container {
+        display: flex;
+        height: 92vh;
+      }
+
+      /* Sidebar */
+      .sidebar {
+        width: 240px;
+        background: linear-gradient(180deg, #222629, #474b4f, #6b6e70);
+        padding: 20px;
+        border-right: 2px solid rgba(252, 196, 206, 0.4);
+        box-shadow: 4px 0 12px rgba(0, 0, 0, 0.5);
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .sidebar a {
+        text-decoration: none;
+        font-size: 1.2rem;
+        font-weight: 500;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 14px;
+        border-radius: 10px;
+        color: transparent;
+        background-image: linear-gradient(135deg, #fcc4ce, #f58f7c);
+        -webkit-background-clip: text;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .sidebar a:hover {
+        background: linear-gradient(135deg, #fcc4ce, #f58f7c);
+        color: #222629 !important;
+        transform: translateX(6px);
+        box-shadow: 0 4px 12px rgba(245, 143, 124, 0.5);
+      }
+
+      .sidebar a i {
+        margin-left: 10px;
+        transition: transform 0.3s ease;
+      }
+
+      .sidebar a:hover i {
+        transform: scale(1.2) rotate(5deg);
+      }
+
+      /* Main content */
+      .user-display {
+        flex: 1;
+        margin: 30px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(8px);
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        overflow-y: auto;
+      }
+
+      .user-display h2 {
+        margin-bottom: 15px;
+        font-size: 2rem;
+        color: #fcc4ce;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .user-display hr {
+        border: none;
+        height: 2px;
+        background: linear-gradient(135deg, #fcc4ce, #f58f7c);
+        margin-bottom: 20px;
+      }
+
+      .form-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 20px;
+        margin-bottom: 15px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        border: 1px solid rgba(252, 196, 206, 0.3);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .form-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(245, 143, 124, 0.4);
+      }
+
+      .form-item strong {
+        font-size: 1.2rem;
+        color: #fcc4ce;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      /* Buttons */
+      .deactivate,
+      .activate {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .deactivate {
+        background: #e57373;
+        color: white;
+      }
+
+      .deactivate:hover {
+        background: #ff7f7f;
+      }
+
+      .activate {
+        background: #81c784;
+        color: white;
+      }
+
+      .activate:hover {
+        background: #66bb6a;
+      }
+
+      /* Scrollbar */
+      .user-display::-webkit-scrollbar {
+        width: 8px;
+      }
+      .user-display::-webkit-scrollbar-thumb {
+        background: #fcc4ce;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    {% include './admin/adminheader.html' %}
+
+    <div class="adminuser-container">
+      {% include './admin/adminsidebar.html' %}
+
+      <div class="user-display">
+        <h2><i class="fa-solid fa-people-group"></i> Users</h2>
+        <hr />
+        {% if users %} {% for user in users %}
+        <div class="form-item">
+          <strong><i class="fa-solid fa-user"></i> {{ user.username }}</strong>
+
+          <form action="/removeuser" method="post" style="margin: 0">
+            <input type="hidden" name="userid" value="{{ user.id }}" />
+            <input type="hidden" name="username" value="{{ user.username }}" />
+            <button type="submit" class="deactivate">Deactivate</button>
+          </form>
+        </div>
+        {% endfor %} {% else %}
+        <p style="text-align: center; color: #fcc4ce">No users present</p>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>

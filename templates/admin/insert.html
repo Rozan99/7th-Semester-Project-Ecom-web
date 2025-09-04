@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Product Inserted - Admin Panel</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Georgia", serif;
+        background: linear-gradient(
+          135deg,
+          #222629 0%,
+          #474b4f 50%,
+          #6b6e70 100%
+        );
+        min-height: 100vh;
+        color: #fcc4ce;
+      }
+
+      .body {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      .main-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 25%;
+        flex: 1;
+        padding: 2rem;
+      }
+
+      .success-container {
+        background: rgba(107, 110, 112, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(252, 196, 206, 0.2);
+        border-radius: 20px;
+        padding: 3rem 2rem;
+        text-align: center;
+        box-shadow: 0 20px 40px rgba(34, 38, 41, 0.3);
+        animation: slideIn 0.8s ease-out;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .success-container::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+          45deg,
+          transparent,
+          rgba(252, 196, 206, 0.1),
+          transparent
+        );
+        animation: shine 3s infinite;
+      }
+
+      .success-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 1.5rem;
+        background: linear-gradient(135deg, #fcc4ce, #f58f7c);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: bounce 1s ease-out;
+        position: relative;
+        z-index: 1;
+      }
+
+      .success-icon::after {
+        content: "✓";
+        font-size: 2.5rem;
+        color: #222629;
+        font-weight: bold;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #fcc4ce;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 4px rgba(34, 38, 41, 0.5);
+        position: relative;
+        z-index: 1;
+      }
+
+      .subtitle {
+        font-size: 1.1rem;
+        color: rgba(252, 196, 206, 0.8);
+        margin-bottom: 2rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        position: relative;
+        z-index: 1;
+      }
+
+      .btn {
+        padding: 0.8rem 2rem;
+        border: none;
+        border-radius: 25px;
+        font-family: "Georgia", serif;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #fcc4ce, #f58f7c);
+        color: #222629;
+        font-weight: 600;
+      }
+
+      .btn-secondary {
+        background: rgba(79, 79, 81, 0.8);
+        color: #fcc4ce;
+        border: 1px solid rgba(252, 196, 206, 0.3);
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(34, 38, 41, 0.3);
+      }
+
+      .btn::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+      }
+
+      .btn:active::before {
+        width: 300px;
+        height: 300px;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateY(0);
+        }
+        40% {
+          transform: translateY(-10px);
+        }
+        60% {
+          transform: translateY(-5px);
+        }
+      }
+
+      @keyframes shine {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .main-content {
+          margin-left: 0;
+          padding: 1rem;
+        }
+
+        .success-container {
+          padding: 2rem 1.5rem;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        .action-buttons {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .btn {
+          width: 100%;
+          max-width: 200px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="body">
+      {% include 'admin/adminsidebar.html' %}
+      <div class="main-content">
+        <div class="success-container">
+          <div class="success-icon"></div>
+          <h1>Product Inserted !!</h1>
+          <p class="subtitle">
+            Your product has been successfully added to the inventory
+          </p>
+          <div class="action-buttons">
+            <a href="{% url 'admin_products' %}" class="btn btn-primary"
+              >View Products</a
+            >
+            <a href="{% url 'add_product' %}" class="btn btn-secondary"
+              >Add Another</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

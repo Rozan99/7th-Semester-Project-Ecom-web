@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>About Us</title>
+
+    <style>
+      /* Modern About Us Page Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Georgia", serif;
+        background: linear-gradient(
+          135deg,
+          #8b4513 0%,
+          #a0522d 25%,
+          #2f1b14 75%,
+          #1a1a1a 100%
+        );
+        min-height: 100vh;
+        line-height: 1.6;
+        color: #2f1b14;
+      }
+
+      main {
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 0 20px;
+        animation: fadeInUp 0.8s ease-out;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      section {
+        background: linear-gradient(145deg, #f5f5dc, #fff8dc);
+        margin-bottom: 30px;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(139, 69, 19, 0.2),
+          inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        border: 1px solid rgba(139, 69, 19, 0.1);
+        transition: all 0.3s ease;
+        animation: slideIn 0.6s ease-out forwards;
+        opacity: 0;
+      }
+
+      section:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      section:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      section:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      section:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      section:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      section:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(139, 69, 19, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      }
+
+      h1 {
+        font-size: 2.8rem;
+        text-align: center;
+        margin-bottom: 30px;
+        background: linear-gradient(135deg, #8b4513, #a0522d);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 2px 2px 4px rgba(139, 69, 19, 0.1);
+        position: relative;
+      }
+
+      h1::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 3px;
+        background: linear-gradient(135deg, #8b4513, #a0522d);
+        border-radius: 2px;
+      }
+
+      h2 {
+        font-size: 2.2rem;
+        text-align: center;
+        margin-bottom: 25px;
+        color: #8b4513;
+        position: relative;
+        padding-bottom: 15px;
+      }
+
+      h2::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 2px;
+        background: linear-gradient(135deg, #a0522d, #8b4513);
+        border-radius: 1px;
+      }
+
+      p {
+        margin-bottom: 20px;
+        text-align: justify;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #2f1b14;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      ul li {
+        padding: 20px;
+        margin-bottom: 15px;
+        background: linear-gradient(145deg, #fff8dc, #f5f5dc);
+        border-radius: 12px;
+        border-left: 4px solid #8b4513;
+        box-shadow: 0 4px 15px rgba(139, 69, 19, 0.1);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      ul li::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(139, 69, 19, 0.1),
+          transparent
+        );
+        transition: left 0.5s ease;
+      }
+
+      ul li:hover::before {
+        left: 100%;
+      }
+
+      ul li:hover {
+        transform: translateX(10px);
+        box-shadow: 0 8px 25px rgba(139, 69, 19, 0.2);
+        border-left-color: #a0522d;
+      }
+
+      ul li strong {
+        color: #8b4513;
+        font-size: 1.2rem;
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      a {
+        color: #8b4513;
+        text-decoration: none;
+        font-weight: 600;
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      a::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(135deg, #8b4513, #a0522d);
+        transition: width 0.3s ease;
+      }
+
+      a:hover::after {
+        width: 100%;
+      }
+
+      a:hover {
+        color: #a0522d;
+        transform: translateY(-1px);
+      }
+
+      #contact ul li {
+        background: linear-gradient(145deg, #f5f5dc, #fff8dc);
+        border-left-color: #a0522d;
+      }
+
+      #contact ul li:hover {
+        background: linear-gradient(145deg, #fff8dc, #f5f5dc);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        main {
+          margin: 20px auto;
+          padding: 0 15px;
+        }
+
+        section {
+          padding: 25px;
+          margin-bottom: 20px;
+        }
+
+        h1 {
+          font-size: 2.2rem;
+        }
+
+        h2 {
+          font-size: 1.8rem;
+        }
+
+        p {
+          font-size: 1rem;
+        }
+
+        ul li {
+          padding: 15px;
+        }
+      }
+
+      /* Loading Animation */
+      .loading {
+        opacity: 0;
+        animation: fadeIn 0.6s ease-out forwards;
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    {% include 'heads.html' %}
+
+    <main>
+      <section id="about" class="loading">
+        <h1>About Our Project</h1>
+        <p>
+          Welcome to our eCommerce platform, a project designed to provide
+          personalized product recommendations using advanced content-based
+          filtering techniques. This platform is created as part of a learning
+          experience to combine modern web technologies with effective
+          recommendation systems.
+        </p>
+      </section>
+
+      <section id="team" class="loading">
+        <h2>Our Team</h2>
+        <ul>
+          <li>
+            <strong>Rakshya Bhattarai</strong> - Frontend Developer. Focus on
+            HTML, CSS, and JavaScript for a responsive user interface.
+          </li>
+          <li>
+            <strong>Samir Thapa</strong> - Data Analyst. Specialized in
+            implementing content-based filtering using Python.
+          </li>
+          <li><strong>Rojan Ghimire</strong> - Backend Developer.</li>
+          <li>
+            <strong>Abhishek Kuikel:</strong> Guiding and mentoring the team to
+            achieve project goals effectively.
+          </li>
+        </ul>
+      </section>
+
+      <section id="tech-stack" class="loading">
+        <h2>Technology Stack</h2>
+        <p>Our project leverages the following technologies:</p>
+        <ul>
+          <li>
+            <strong>Backend:</strong> Flask - A lightweight web framework for
+            handling server-side logic.
+          </li>
+          <li>
+            <strong>Frontend:</strong> HTML, CSS, JavaScript - For creating a
+            user-friendly and responsive interface.
+          </li>
+          <li>
+            <strong>Recommendation System:</strong> Content-based filtering
+            implemented using Python and TF-IDF vectorization.
+          </li>
+        </ul>
+      </section>
+
+      <section id="goals" class="loading">
+        <h2>Project Goals</h2>
+        <p>
+          The primary goal of this project is to create an eCommerce platform
+          that provides users with accurate and personalized product
+          recommendations based on the content they interact with. The platform
+          aims to deliver a seamless shopping experience while showcasing the
+          practical applications of content-based filtering in a real-world
+          scenario.
+        </p>
+      </section>
+
+      <section id="contact" class="loading">
+        <h2>Contact Us</h2>
+        <p>
+          For inquiries or collaborations, feel free to reach out to our team
+          through the following channels:
+        </p>
+      </section>
+    </main>
+
+    {% include 'foots.html' %}
+
+    <script>
+      // Enhanced loading animations
+      document.addEventListener("DOMContentLoaded", function () {
+        const sections = document.querySelectorAll(".loading");
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.style.opacity = "1";
+                entry.target.style.transform = "translateY(0)";
+              }
+            });
+          },
+          {
+            threshold: 0.1,
+          }
+        );
+
+        sections.forEach((section) => {
+          observer.observe(section);
+        });
+
+        // Add ripple effect to list items
+        const listItems = document.querySelectorAll("ul li");
+        listItems.forEach((item) => {
+          item.addEventListener("click", function (e) {
+            const ripple = document.createElement("span");
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+
+            ripple.style.cssText = `
+              position: absolute;
+              width: ${size}px;
+              height: ${size}px;
+              left: ${x}px;
+              top: ${y}px;
+              background: rgba(139, 69, 19, 0.3);
+              border-radius: 50%;
+              transform: scale(0);
+              animation: ripple 0.6s ease-out;
+              pointer-events: none;
+            `;
+
+            this.appendChild(ripple);
+
+            setTimeout(() => {
+              ripple.remove();
+            }, 600);
+          });
+        });
+
+        // Add CSS for ripple animation
+        const style = document.createElement("style");
+        style.textContent = `
+          @keyframes ripple {
+            to {
+              transform: scale(2);
+              opacity: 0;
+            }
+          }
+        `;
+        document.head.appendChild(style);
+      });
+    </script>
+  </body>
+</html>

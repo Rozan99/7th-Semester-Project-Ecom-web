@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>View the updates</title>
+    <style>
+      .admin-border {
+        background: linear-gradient(90deg, #fcc4ce, #f58f7c);
+        width: 90%;
+        margin: 0 auto;
+        height: 5px;
+        border-radius: 2px;
+      }
+
+      .updates {
+        border: 1px solid #474b4f;
+        border-radius: 8px;
+        height: 600px;
+        width: 400px;
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(135deg, #222629, #474b4f);
+        color: #fcc4ce;
+        animation: modernGlow 2s infinite;
+        padding: 20px;
+        font-family: Georgia, serif;
+      }
+
+      .new-purchases,
+      .new-user {
+        margin: 20px;
+      }
+
+      .new-purchases h2,
+      .new-user h2 {
+        color: #f58f7c;
+        font-weight: 600;
+        margin-bottom: 15px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .purchase-history,
+      .user-history {
+        padding: 15px;
+        border: 1px solid #6b6e70;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #4f4f51, #6b6e70);
+        box-shadow: 0 4px 15px rgba(252, 196, 206, 0.2);
+        transition: all 0.3s ease;
+        margin-bottom: 10px;
+        backdrop-filter: blur(10px);
+      }
+
+      .purchase-history:hover,
+      .user-history:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 8px 25px rgba(245, 143, 124, 0.4);
+        border-color: #fcc4ce;
+      }
+
+      .purchase-history p,
+      .user-history p {
+        margin: 8px 0;
+        font-size: 14px;
+        line-height: 1.4;
+      }
+
+      .purchase-history strong,
+      .user-history strong {
+        color: #f58f7c;
+        font-weight: 600;
+      }
+
+      @keyframes modernGlow {
+        0% {
+          box-shadow: 0 0 15px rgba(252, 196, 206, 0.3),
+            0 0 25px rgba(245, 143, 124, 0.2), 0 0 35px rgba(252, 196, 206, 0.1);
+        }
+        50% {
+          box-shadow: 0 0 25px rgba(252, 196, 206, 0.4),
+            0 0 35px rgba(245, 143, 124, 0.3), 0 0 45px rgba(252, 196, 206, 0.2);
+        }
+        100% {
+          box-shadow: 0 0 15px rgba(252, 196, 206, 0.3),
+            0 0 25px rgba(245, 143, 124, 0.2), 0 0 35px rgba(252, 196, 206, 0.1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="updates">
+      <div class="new-purchases">
+        <h2>New Purchases</h2>
+        {% for x in newpurchase %}
+
+        <div class="purchase-history">
+          <p><strong>PurchaseID:</strong> {{x.purchaseid}}</p>
+          <p><strong>ProductName:</strong> {{x.productname}}</p>
+          <p><strong>Quantity:</strong> {{x.quantity}}</p>
+          <p><strong>Price:</strong> {{x.productprice}}</p>
+          <p><strong>Purchased On:</strong> {{x.purchaseTime}}</p>
+        </div>
+
+        {% endfor %}
+      </div>
+      <div class="admin-border"></div>
+      <div class="new-user">
+        <h2>New Users</h2>
+        {% for x in newuser %}
+        <div class="user-history">
+          <p><strong>ID:</strong> {{x.id}}</p>
+          <p><strong>User:</strong> {{x.username}}</p>
+          <p><strong>Email:</strong> {{x.email}}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>

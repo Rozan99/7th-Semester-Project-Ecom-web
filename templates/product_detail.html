@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ product.pname }} - Product Detail</title>
+    <style>
+      body {
+        font-family: "Georgia", serif;
+        background: linear-gradient(
+          135deg,
+          #d2b48c 0%,
+          #8b4513 50%,
+          #2f1b14 100%
+        );
+        margin: 0;
+        padding: 20px;
+        min-height: 100vh;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background-color: #fdf5e6;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+      .product-detail {
+        display: flex;
+        gap: 30px;
+        margin-bottom: 40px;
+        flex-wrap: wrap;
+      }
+      .product-img {
+        flex: 1;
+        min-width: 300px;
+      }
+      .product-detail img {
+        width: 100%;
+        max-width: 400px;
+        height: 400px;
+        object-fit: cover;
+        border-radius: 15px;
+        border: 3px solid #8b4513;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+      .product-info {
+        flex: 1;
+        min-width: 300px;
+        padding: 20px;
+      }
+      .product-info h3 {
+        margin: 0 0 20px 0;
+        font-size: 32px;
+        color: #2f1b14;
+        font-weight: bold;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      }
+      .product-info p {
+        margin: 15px 0;
+        font-size: 18px;
+        color: #5d4037;
+        line-height: 1.6;
+      }
+      .product-info strong {
+        color: #2f1b14;
+        font-weight: bold;
+      }
+      .back-btn {
+        display: inline-block;
+        margin: 20px 15px 20px 0;
+        padding: 12px 25px;
+        background: linear-gradient(135deg, #d2b48c, #8b4513);
+        color: white;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: bold;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+      .back-btn:hover {
+        background: #fdf5e6;
+        color: #8b4513;
+        border: 2px solid #8b4513;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        text-decoration: none;
+      }
+      .cart-button {
+        padding: 12px 25px;
+        border-radius: 25px;
+        background: linear-gradient(135deg, #8b4513, #2f1b14);
+        color: white;
+        border: none;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        margin-top: 15px;
+      }
+      .cart-button:hover {
+        background: linear-gradient(135deg, #a0522d, #8b4513);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      }
+      .recommended-section {
+        margin-top: 50px;
+      }
+      .recommended-section h3 {
+        font-size: 28px;
+        color: #2f1b14;
+        margin-bottom: 30px;
+        text-align: center;
+        font-weight: bold;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      }
+      .recommended-products {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        margin-top: 20px;
+      }
+      .recommend-info {
+        background-color: #fff6e8;
+        border-radius: 15px;
+        padding: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid #d2b48c;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      .recommend-info:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        border-color: #8b4513;
+      }
+      .recommend-info img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        border: 2px solid #d2b48c;
+      }
+      .card-body h5 {
+        font-size: 20px;
+        color: #2f1b14;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+      .card-body p {
+        margin: 8px 0;
+        font-size: 14px;
+        color: #5d4037;
+      }
+      @media (max-width: 768px) {
+        .product-detail {
+          flex-direction: column;
+        }
+        .recommended-products {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    {% include 'heads.html' %} {% include 'signup.html' %} {% include
+    'signin.html' %}
+
+    <div class="container">
+      <div class="product-detail">
+        <div class="product-img">
+          <img
+            src="{{ product['ImageURL'].split('|')[0].strip() }}"
+            alt="{{ product['Name'] }}"
+          />
+        </div>
+        <div class="product-info">
+          <form action="/cart" method="post">
+            <h3>{{ product['Name'] }}</h3>
+            <p><strong>Brand:</strong> {{ product['Brand'] }}</p>
+            <p><strong>Rating:</strong> {{ product['Rating'] }}</p>
+            <p><strong>Review Count:</strong> {{ product['ReviewCount'] }}</p>
+            <p>
+              <strong>Description:</strong> {{
+              product['Description'].split('.')[0].strip() }}
+            </p>
+            <p><strong>Price:</strong> Rs {{ product['Price'] }}</p>
+
+            <a href="{{ url_for('index') }}" class="back-btn">← Back to Home</a>
+
+            <input type="hidden" name="pid" value="{{ product.ID }}" />
+            <input type="hidden" name="pname" value="{{ product.Name }}" />
+            <input
+              type="hidden"
+              name="image"
+              value="{{ product['ImageURL'].split('|')[0].strip() }}"
+            />
+            <input type="hidden" name="price" value="{{ product.Price }}" />
+            <button type="submit" class="cart-button">
+              <i class="fas fa-shopping-cart"></i> Add to Cart
+            </button>
+          </form>
+        </div>
+      </div>
+
+      {% if recommendations1 %}
+      <div class="recommended-section">
+        <h3>Recommended Products</h3>
+        <div class="recommended-products">
+          {% for rec in recommendations1 %}
+          <div
+            class="recommend-info"
+            data-href="{{ url_for('product_detail', pid=rec.ID) }}"
+            onclick="redirectToDetail(this)"
+          >
+            <img
+              src="{{ rec.ImageURL.split('|')[0].strip() }}"
+              alt="{{ rec.Name }}"
+              onerror="this.src='{{ rec.ImageURL.split('|')[1].strip() if '|' in rec.ImageURL else '' }}'"
+            />
+            <div class="card-body">
+              <h5>{{ rec.Name }}</h5>
+              <p><strong>Brand:</strong> {{ rec.Brand }}</p>
+              <p><strong>Rating:</strong> {{ rec.Rating }}</p>
+              <p><strong>Price:</strong> Rs {{ rec.Price }}</p>
+
+              <form
+                action="/cart"
+                method="post"
+                onclick="event.stopPropagation();"
+              >
+                <input type="hidden" name="pid" value="{{ rec.ID }}" />
+                <input type="hidden" name="pname" value="{{ rec.Name }}" />
+                <input
+                  type="hidden"
+                  name="image"
+                  value="{{ rec.ImageURL.split('|')[0].strip() }}"
+                />
+                <input type="hidden" name="price" value="{{ rec.Price }}" />
+                <button type="submit" class="cart-button">
+                  <i class="fas fa-shopping-cart"></i> Add to Cart
+                </button>
+              </form>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% else %}
+      <p style="text-align: center; color: #8b4513; margin-top: 40px">
+        No recommendations available at this time.
+      </p>
+      {% endif %}
+    </div>
+
+    {% include 'foots.html' %}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      function redirectToDetail(element) {
+        const url = element.getAttribute("data-href");
+        window.location.href = url;
+      }
+    </script>
+  </body>
+</html>

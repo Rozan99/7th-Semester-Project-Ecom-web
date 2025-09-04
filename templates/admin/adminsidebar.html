@@ -1,0 +1,82 @@
+<style>
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 240px;
+    padding: 20px;
+    height: 92vh;
+    background: linear-gradient(180deg, #222629, #474b4f, #6b6e70);
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.5);
+    border-right: 2px solid rgba(252, 196, 206, 0.4);
+  }
+
+  /* Links */
+  .sidebar a {
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(135deg, #fcc4ce, #f58f7c);
+    transition: all 0.3s ease-in-out;
+  }
+
+  /* Hover Effect */
+  .sidebar a:hover {
+    background: linear-gradient(135deg, #fcc4ce, #f58f7c);
+    color: #222629 !important;
+    transform: translateX(6px);
+    box-shadow: 0 4px 12px rgba(245, 143, 124, 0.5);
+  }
+
+  /* Icon adjustments */
+  .sidebar a i {
+    margin-left: 10px;
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar a:hover i {
+    transform: scale(1.2) rotate(5deg);
+  }
+</style>
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+  integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+
+<div class="sidebar">
+  <a href="admin">Dashboard <i class="fa-solid fa-grip"></i></a>
+  <a href="products">Edit <i class="fa-solid fa-pen fa-sm"></i></a>
+  <a href="/purchase"
+    >Purchases <i class="fa-solid fa-money-bills fa-sm"></i
+  ></a>
+  <a href="/adminusers"
+    >Deactivate User <i class="fa-regular fa-user fa-sm"></i
+  ></a>
+  <a href="/adminusersdeactive"
+    >Activate User <i class="fa-solid fa-user fa-sm"></i
+  ></a>
+  <a href="/addproduct"
+    >Add Products <i class="fa-solid fa-cart-plus fa-sm"></i
+  ></a>
+  <a href="/category">Categories <i class="fa-solid fa-folder fa-sm"></i></a>
+  <a href="/addcategory"
+    >Add Category <i class="fa-solid fa-folder-plus fa-sm"></i
+  ></a>
+  <a href="/adminlogout"
+    >Logout <i class="fa-solid fa-right-from-bracket"></i
+  ></a>
+</div>

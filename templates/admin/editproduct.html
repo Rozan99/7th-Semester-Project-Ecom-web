@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Edit Product - Admin Panel</title>
+    <style>
+      * {
+        font-family: "Georgia", serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: linear-gradient(
+          135deg,
+          #222629 0%,
+          #474b4f 50%,
+          #6b6e70 100%
+        );
+        min-height: 100vh;
+        color: #fcc4ce;
+      }
+
+      .edit-container {
+        display: flex;
+        flex-direction: row;
+        min-height: 100vh;
+      }
+
+      .form {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        border: 2px solid #4f4f51;
+        width: 100%;
+        max-width: 900px;
+        border-radius: 20px;
+        padding: 40px;
+        background: rgba(107, 110, 112, 0.1);
+        backdrop-filter: blur(10px);
+        color: #fcc4ce;
+        margin: 20px;
+        box-shadow: 0 20px 40px rgba(34, 38, 41, 0.3);
+        animation: slideIn 0.6s ease-out;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .form h2 {
+        color: #f58f7c;
+        margin-bottom: 30px;
+        font-size: 2rem;
+        text-align: center;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 600px;
+        animation: fadeInUp 0.5s ease-out forwards;
+        opacity: 0;
+      }
+
+      .form-group:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .form-group:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .form-group:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .form-group:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      .form-group:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+      .form-group:nth-child(6) {
+        animation-delay: 0.6s;
+      }
+      .form-group:nth-child(7) {
+        animation-delay: 0.7s;
+      }
+      .form-group:nth-child(8) {
+        animation-delay: 0.8s;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .form-group label {
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #f58f7c;
+        font-size: 1.1rem;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        border-radius: 12px;
+        padding: 15px;
+        width: 100%;
+        background: rgba(79, 79, 81, 0.2);
+        border: 2px solid #4f4f51;
+        color: #fcc4ce;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(5px);
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: #f58f7c;
+        background: rgba(79, 79, 81, 0.3);
+        box-shadow: 0 0 20px rgba(245, 143, 124, 0.3);
+        transform: translateY(-2px);
+      }
+
+      .form-group input::placeholder,
+      .form-group textarea::placeholder {
+        color: rgba(252, 196, 206, 0.6);
+      }
+
+      .form-group textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+
+      .change {
+        border-radius: 12px;
+        padding: 15px 30px;
+        background: linear-gradient(135deg, #f58f7c 0%, #fcc4ce 100%);
+        color: #222629;
+        border: none;
+        cursor: pointer;
+        margin-top: 30px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .change::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .change:hover::before {
+        left: 100%;
+      }
+
+      .change:hover {
+        background: linear-gradient(135deg, #fcc4ce 0%, #f58f7c 100%);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(245, 143, 124, 0.4);
+      }
+
+      .change:active {
+        transform: translateY(-1px);
+      }
+
+      .no-products {
+        text-align: center;
+        color: #f58f7c;
+        font-size: 1.2rem;
+        margin-top: 50px;
+      }
+
+      @media (max-width: 768px) {
+        .edit-container {
+          flex-direction: column;
+        }
+
+        .form {
+          margin: 10px;
+          padding: 20px;
+          width: calc(100% - 20px);
+        }
+
+        .form-group input,
+        .form-group textarea {
+          padding: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    {% include './admin/adminheader.html' %}
+    <div class="edit-container">
+      {% include './admin/adminsidebar.html' %}
+
+      <div class="form">
+        <h2>Edit Product Details</h2>
+
+        {% if result %} {% for values in result %}
+        <form action="/changedata" method="post">
+          <input type="hidden" name="id" value="{{values.pid}}" />
+          <div class="form-group">
+            <label>Product Name</label>
+            <input type="text" value="{{values.pname}}" name="pname" required />
+          </div>
+          <div class="form-group">
+            <label>Review Count</label>
+            <input
+              type="number"
+              value="{{values.reviewcount}}"
+              name="reviewcount"
+              min="0"
+            />
+          </div>
+          <div class="form-group">
+            <label>Brand</label>
+            <input type="text" value="{{values.brand}}" name="brand" required />
+          </div>
+          <div class="form-group">
+            <label>Image URL</label>
+            <input
+              type="url"
+              value="{{values.imageurl}}"
+              name="imageurl"
+              placeholder="https://example.com/image.jpg"
+            />
+          </div>
+          <div class="form-group">
+            <label>Rating</label>
+            <input
+              type="number"
+              value="{{values.rating}}"
+              name="rating"
+              min="0"
+              max="5"
+              step="0.1"
+            />
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea
+              rows="7"
+              name="description"
+              placeholder="Enter product description..."
+            >
+{{values.description}}</textarea
+            >
+          </div>
+          <div class="form-group">
+            <label>Price</label>
+            <input
+              type="number"
+              value="{{values.price}}"
+              name="price"
+              min="0"
+              step="0.01"
+            />
+          </div>
+          <button type="submit" class="change">Update Product</button>
+        </form>
+        {% endfor %} {% endif %} {% if datas %} {% for product in datas %}
+        <form action="/changedata" method="post">
+          <input type="hidden" name="id" value="{{product.productId}}" />
+          <div class="form-group">
+            <label>Product Name</label>
+            <input
+              type="text"
+              value="{{product.productname}}"
+              name="pname"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>Review Count</label>
+            <input
+              type="number"
+              value="{{product.reviewcount}}"
+              name="reviewcount"
+              min="0"
+            />
+          </div>
+          <div class="form-group">
+            <label>Brand</label>
+            <input
+              type="text"
+              value="{{product.productbrand}}"
+              name="brand"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>Image URL</label>
+            <input
+              type="url"
+              value="{{product.imageurl}}"
+              name="imageurl"
+              placeholder="https://example.com/image.jpg"
+            />
+          </div>
+          <div class="form-group">
+            <label>Rating</label>
+            <input
+              type="number"
+              value="{{product.rating}}"
+              name="rating"
+              min="0"
+              max="5"
+              step="0.1"
+            />
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea
+              rows="7"
+              name="description"
+              placeholder="Enter product description..."
+            >
+{{product.description}}</textarea
+            >
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <textarea
+              rows="4"
+              name="category"
+              placeholder="Enter product category..."
+            >
+{{product.category}}</textarea
+            >
+          </div>
+          <div class="form-group">
+            <label>Price</label>
+            <input
+              type="number"
+              value="{{product.price}}"
+              name="price"
+              min="0"
+              step="0.01"
+            />
+          </div>
+          <button type="submit" class="change">Update Product</button>
+        </form>
+        {% endfor %} {% else %}
+        <div class="no-products">No products available for editing</div>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Product Listing</title>
+    <style>
+      body {
+        font-family: "Georgia", serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(
+          135deg,
+          #d2b48c 0%,
+          #8b4513 50%,
+          #2f1b14 100%
+        );
+        min-height: 100vh;
+      }
+
+      .container {
+        margin: 0 auto;
+        display: flex;
+        padding: 20px;
+      }
+
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+      }
+
+      .product {
+        width: calc(25% - 20px);
+        min-width: 280px;
+        background-color: #f5f5dc;
+        border: 2px solid #d2b48c;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .product:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        border-color: #8b4513;
+      }
+
+      .product img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-bottom: 3px solid #8b4513;
+      }
+
+      .product-info {
+        padding: 20px;
+        background-color: #f5f5dc;
+      }
+
+      .product-info h5 {
+        margin: 0 0 10px 0;
+        font-size: 18px;
+        color: #2f1b14;
+        font-weight: bold;
+      }
+
+      .product-info p {
+        margin: 8px 0;
+        font-size: 14px;
+        color: #5d4037;
+      }
+
+      .product-info strong {
+        color: #2f1b14;
+      }
+
+      .cart-button {
+        margin-top: 15px;
+        padding: 10px 15px;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #d2b48c, #8b4513);
+        border: none;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 16px;
+        width: 100%;
+      }
+
+      .cart-button:hover {
+        background: linear-gradient(135deg, #8b4513, #2f1b14);
+        transform: scale(1.05);
+      }
+
+      .cart-button i {
+        margin-right: 8px;
+      }
+
+      /* Responsive design */
+      @media (max-width: 1200px) {
+        .product {
+          width: calc(33.333% - 20px);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .product {
+          width: calc(50% - 20px);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .product {
+          width: 100%;
+          max-width: 350px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div style="display: flex">
+      {% include 'categorybutton.html' %}
+      <div class="container">
+        <div class="row">
+          {% for product in data %}
+          <div
+            class="product"
+            data-href="{{ url_for('product_detail', pid=product.pid) }}"
+            onclick="redirectToDetail(this)"
+          >
+            <!-- Updated image styling and error handling -->
+            <img
+              src="{{ product['imageurl'].split('|')[0].strip() }}"
+              class="img-fluid"
+              alt="{{ product['Name'] }}"
+              style="height: 200px"
+              onerror="this.src='{{ product['ImageURL'].split('|')[1].strip() if '|' in product['ImageURL']  }}'"
+            />
+
+            <div class="product-info">
+              <!-- Enhanced typography and spacing -->
+              <h5>{{ product.pname }}</h5>
+              <p><strong>Brand:</strong> {{ product.brand }}</p>
+              <p><strong>Price:</strong> Rs {{ product.price }}</p>
+
+              <!-- Updated cart button styling and layout -->
+              <form action="/cart" method="post">
+                <input type="hidden" name="pid" value=" {{product.pid}}" />
+                <input type="hidden" name="pname" value="{{product.pname}}" />
+                <input
+                  type="hidden"
+                  name="image"
+                  value="{{ product.imageurl.split('|')[0].strip() }}"
+                />
+                <input type="hidden" name="price" value="{{product.price}}" />
+                <button type="submit" class="cart-button">
+                  <i class="fas fa-shopping-cart"></i>Add to Cart
+                </button>
+              </form>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function redirectToDetail(element) {
+        const url = element.getAttribute("data-href");
+        window.location.href = url;
+      }
+    </script>
+  </body>
+</html>

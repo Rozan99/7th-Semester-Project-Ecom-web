@@ -1,0 +1,290 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+  integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+
+<style>
+  body {
+    font-family: "Georgia", serif;
+    background: linear-gradient(135deg, #d2b48c, #8b4513, #2f1b14);
+    min-height: 100vh;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* Updated navbar with gradient background and cream styling */
+  .navbar {
+    background: linear-gradient(135deg, #d2b48c, #8b4513, #2f1b14);
+    color: #f5f5dc;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.3);
+    border-bottom: 2px solid #8b4513;
+  }
+  .logo-container a {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #f5f5dc;
+    text-decoration: none;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    transition: color 0.3s ease;
+  }
+  .logo-container a:hover {
+    text-decoration: none;
+    color: #fff8dc;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+  }
+
+  /* Updated search bar with cream background and brown accents */
+  .search-bar {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  .search-bar input {
+    width: 50vh;
+    padding: 12px 15px;
+    border-radius: 25px;
+    border: 2px solid #8b4513;
+    font-size: 1rem;
+    background-color: #f5f5dc;
+    color: #2f1b14;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  .search-bar input:focus {
+    outline: none;
+    border-color: #d2b48c;
+    box-shadow: 0 0 10px rgba(210, 180, 140, 0.5);
+  }
+  .search-bar button {
+    background: linear-gradient(135deg, #8b4513, #d2b48c);
+    color: #f5f5dc;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-left: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+  .search-bar button:hover {
+    background: linear-gradient(135deg, #d2b48c, #8b4513);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Updated suggestions dropdown with cream background */
+  #suggestions {
+    position: absolute;
+    top: 100%;
+    background-color: #f5f5dc;
+    border: 2px solid #8b4513;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    max-height: 300px;
+    overflow-y: auto;
+    display: none;
+    width: 100%;
+    margin-top: 5px;
+  }
+  .suggestion-item {
+    padding: 12px 15px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #2f1b14;
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid #d2b48c;
+  }
+  .suggestion-item:hover {
+    background-color: #fff8dc;
+  }
+  .suggestion-item:last-child {
+    border-bottom: none;
+  }
+
+  /* Updated cart and user icons with cream colors */
+  .cart,
+  .user {
+    cursor: pointer;
+  }
+  .cart i,
+  .user i {
+    font-size: 1.5rem;
+    color: #f5f5dc;
+    transition: all 0.3s ease;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  }
+  .cart i:hover,
+  .user i:hover {
+    transform: scale(1.1);
+    color: #fff8dc;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+  }
+
+  /* Updated navigation links with gradient buttons */
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .nav-links a {
+    color: #f5f5dc;
+    font-size: 1rem;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  }
+  .signup {
+    background: linear-gradient(135deg, #8b4513, #d2b48c);
+    border: 2px solid #8b4513;
+  }
+  .signup:hover {
+    background: linear-gradient(135deg, #d2b48c, #8b4513);
+    text-decoration: none;
+    color: #f5f5dc;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+  }
+  .signin {
+    background-color: #f5f5dc;
+    color: #2f1b14 !important;
+    border: 2px solid #8b4513;
+  }
+  .signin:hover {
+    background-color: #fff8dc;
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+  }
+  .logout {
+    background-color: #f5f5dc;
+    color: #8b4513 !important;
+    border: 2px solid #8b4513;
+  }
+  .logout:hover {
+    background: linear-gradient(135deg, #8b4513, #d2b48c);
+    color: #f5f5dc !important;
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Updated user section with cream text */
+  .user {
+    position: relative;
+    text-align: center;
+  }
+  .user i {
+    font-size: 1.5rem;
+  }
+  .user span {
+    position: absolute;
+    top: 68%;
+    left: 45%;
+    transform: translateX(-50%);
+    font-size: 0.9rem;
+    color: #f5f5dc;
+    margin-top: 5px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    font-weight: 600;
+  }
+</style>
+
+{% include 'signin.html' %} {% include 'signup.html' %}
+
+<nav class="navbar">
+  <div class="logo-container">
+    <a href="/index">Hamro-Pasal</a>
+  </div>
+
+  <div class="search-bar">
+    <form action="/search" method="GET">
+      <input
+        type="search"
+        name="query"
+        placeholder="Search products..."
+        id="searchBar"
+        oninput="showSuggestions()"
+      />
+      <button type="submit">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+    </form>
+    <div id="suggestions"></div>
+  </div>
+
+  {% if session.get('logged_in') %}
+  <div class="nav-links">
+    <div class="cart">
+      <a href="/cart"><i class="fas fa-shopping-cart"></i></a>
+    </div>
+    <div class="user" onclick="directUser()">
+      <i class="fa-solid fa-user"></i>
+      <span>{{ session['username'] }}</span>
+    </div>
+    <a class="logout" href="/logout">Logout</a>
+  </div>
+  {% else %}
+  <div class="nav-links">
+    <div class="cart">
+      <a href="/cart"><i class="fas fa-shopping-cart"></i></a>
+    </div>
+    <a class="signup" href="#" data-toggle="modal" data-target="#signupModal"
+      >Sign Up</a
+    >
+    <a class="signin" href="#" data-toggle="modal" data-target="#signinModal"
+      >Sign In</a
+    >
+  </div>
+  {% endif %}
+</nav>
+
+<script>
+  function showSuggestions() {
+    var query = document.getElementById("searchBar").value;
+    console.log("Value is: ", query);
+    if (query.length >= 1) {
+      fetch(`/suggestions?query=${query}`)
+        .then((response) => response.json())
+        .then((data) => {
+          let suggestionsDiv = document.getElementById("suggestions");
+          suggestionsDiv.innerHTML = "";
+          if (data.suggestions.length > 0) {
+            data.suggestions.forEach(function (suggestion) {
+              var suggestionElement = document.createElement("div");
+              suggestionElement.textContent = suggestion;
+              suggestionElement.classList.add("suggestion-item");
+              suggestionElement.addEventListener("click", function () {
+                document.getElementById("searchBar").value = suggestion;
+                suggestionsDiv.innerHTML = "";
+                suggestionsDiv.style.display = "none";
+              });
+              suggestionsDiv.appendChild(suggestionElement);
+            });
+            suggestionsDiv.style.display = "block";
+          } else {
+            suggestionsDiv.style.display = "none";
+          }
+        });
+    } else {
+      document.getElementById("suggestions").style.display = "none";
+    }
+  }
+
+  function directUser() {
+    window.location.href = "detail";
+  }
+</script>

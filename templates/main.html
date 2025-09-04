@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>main page</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <style>
+      body {
+        background: linear-gradient(
+          135deg,
+          #d2b48c 0%,
+          #8b4513 50%,
+          #2f1b14 100%
+        );
+        min-height: 100vh;
+        font-family: Georgia, serif;
+      }
+
+      .navbar {
+        background: rgba(245, 245, 220, 0.95) !important;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+      }
+
+      .navbar-brand {
+        color: #8b4513 !important;
+        font-weight: bold;
+        font-size: 1.5rem;
+      }
+
+      .nav-link {
+        color: #8b4513 !important;
+        font-weight: 500;
+      }
+
+      .nav-link:hover {
+        color: #d2b48c !important;
+        transform: translateY(-1px);
+        transition: all 0.3s ease;
+      }
+
+      .btn-outline-success {
+        border-color: #8b4513;
+        color: #8b4513;
+        background: transparent;
+      }
+
+      .btn-outline-success:hover {
+        background: linear-gradient(135deg, #d2b48c, #8b4513);
+        border-color: #8b4513;
+        color: white;
+      }
+
+      .btn-outline-primary {
+        border-color: #8b4513;
+        color: #8b4513;
+        background: transparent;
+      }
+
+      .btn-outline-primary:hover {
+        background: linear-gradient(135deg, #d2b48c, #8b4513);
+        border-color: #8b4513;
+        color: white;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #d2b48c, #8b4513);
+        border: none;
+        color: white;
+        font-weight: 500;
+      }
+
+      .btn-primary:hover {
+        background: linear-gradient(135deg, #8b4513, #2f1b14);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      .btn-outline-danger {
+        border-color: #8b4513;
+        color: #8b4513;
+        background: transparent;
+      }
+
+      .btn-outline-danger:hover {
+        background: linear-gradient(135deg, #d2b48c, #8b4513);
+        border-color: #8b4513;
+        color: white;
+      }
+
+      .container {
+        background: rgba(245, 245, 220, 0.95);
+        border-radius: 15px;
+        padding: 30px;
+        margin-top: 30px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+      }
+
+      .form-control {
+        border: 2px solid #d2b48c;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.9);
+        color: #2f1b14;
+      }
+
+      .form-control:focus {
+        border-color: #8b4513;
+        box-shadow: 0 0 0 0.2rem rgba(139, 69, 19, 0.25);
+        background: white;
+      }
+
+      #suggestions {
+        border: 2px solid #d2b48c;
+        max-height: 200px;
+        overflow-y: auto;
+        position: absolute;
+        background: rgba(245, 245, 220, 0.98);
+        width: 100%;
+        z-index: 1000;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      #suggestions div {
+        padding: 12px;
+        cursor: pointer;
+        color: #2f1b14;
+        border-bottom: 1px solid rgba(139, 69, 19, 0.2);
+      }
+
+      #suggestions div:hover {
+        background: linear-gradient(135deg, #d2b48c, rgba(139, 69, 19, 0.1));
+        color: #8b4513;
+      }
+
+      .card {
+        background: rgba(245, 245, 220, 0.95);
+        border: 2px solid #d2b48c;
+        border-radius: 15px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        overflow: hidden;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        border-color: #8b4513;
+      }
+
+      .card-img-top {
+        border-radius: 15px 15px 0 0;
+        transition: transform 0.3s ease;
+      }
+
+      .card:hover .card-img-top {
+        transform: scale(1.05);
+      }
+
+      .card-body {
+        padding: 20px;
+      }
+
+      .card-title {
+        color: #2f1b14;
+        font-weight: bold;
+        font-size: 1.1rem;
+      }
+
+      .card-text {
+        color: #8b4513;
+        font-weight: 500;
+      }
+
+      .modal-content {
+        background: rgba(245, 245, 220, 0.98);
+        border: 2px solid #d2b48c;
+        border-radius: 15px;
+        color: #2f1b14;
+      }
+
+      .modal-header {
+        border-bottom: 2px solid #d2b48c;
+        background: linear-gradient(
+          135deg,
+          rgba(210, 180, 140, 0.3),
+          rgba(139, 69, 19, 0.1)
+        );
+      }
+
+      .modal-title {
+        color: #2f1b14;
+        font-weight: bold;
+      }
+
+      .modal-footer {
+        border-top: 2px solid #d2b48c;
+        background: linear-gradient(
+          135deg,
+          rgba(210, 180, 140, 0.3),
+          rgba(139, 69, 19, 0.1)
+        );
+      }
+
+      .btn-secondary {
+        background: linear-gradient(135deg, #d2b48c, #8b4513);
+        border: none;
+        color: white;
+      }
+
+      .btn-secondary:hover {
+        background: linear-gradient(135deg, #8b4513, #2f1b14);
+      }
+
+      .footer {
+        background: linear-gradient(135deg, #2f1b14, #8b4513) !important;
+        color: #f5f5dc;
+        margin-top: 50px;
+      }
+
+      .footer h5 {
+        color: #d2b48c;
+        font-weight: bold;
+      }
+
+      .footer a {
+        color: #f5f5dc;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer a:hover {
+        color: #d2b48c;
+        text-decoration: none;
+      }
+
+      h2,
+      h5 {
+        color: #2f1b14;
+        font-weight: bold;
+      }
+
+      .text-center.mb-4 {
+        color: #2f1b14;
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Added form styling for search container */
+      .search-container {
+        background: rgba(245, 245, 220, 0.95);
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="index">Hamro-pasal</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <!-- Left-aligned Home Button -->
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="index"
+              ><i class="fas fa-home"></i> Home</a
+            >
+          </li>
+        </ul>
+        <!-- Search Bar -->
+        <form
+          class="form-inline my-2 my-lg-0 mr-auto"
+          action="/search"
+          method="GET"
+        >
+          <input
+            class="form-control mr-sm-2"
+            type="search"
+            name="query"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+            Search
+          </button>
+        </form>
+
+        <ul class="navbar-nav">
+          {% if session.get('logged_in') %}
+          <li class="nav-item">
+            <a class="nav-link btn btn-outline-danger" href="/logout">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a
+              class="nav-link btn btn-outline-primary mr-2"
+              href="#"
+              data-toggle="modal"
+              data-target="#signupModal"
+              >Sign Up</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link btn btn-primary"
+              href="#"
+              data-toggle="modal"
+              data-target="#signinModal"
+              >Sign In</a
+            >
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Search Bar -->
+    <div class="container search-container" style="margin-top: 30px">
+      <form action="/recommendations" method="post" style="display: flex">
+        <div style="position: relative; width: 100%">
+          <!-- Container for relative positioning -->
+          <input
+            type="text"
+            id="searchBar"
+            class="form-control mr-2"
+            name="prod"
+            placeholder="Search for products..."
+            autocomplete="off"
+            oninput="showSuggestions()"
+          />
+          <div
+            id="suggestions"
+            style="
+              position: absolute;
+              top: 100%;
+              left: 0;
+              right: 0;
+              z-index: 100;
+              background: rgba(245, 245, 220, 0.98);
+              width: 100%;
+              max-height: 200px;
+              overflow-y: auto;
+              display: none;
+              border-radius: 8px;
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            "
+          ></div>
+        </div>
+        <input
+          type="number"
+          class="form-control"
+          name="nbr"
+          placeholder="Number of products..."
+          style="width: 100px"
+        />
+        <button class="btn btn-primary">Search</button>
+      </form>
+    </div>
+
+    {% if message %}
+    <div class="container">
+      <h5
+        style="
+          text-align: center;
+          margin-top: 20px;
+          color: #2f1b14;
+          font-weight: bold;
+        "
+      >
+        {{message}}
+      </h5>
+    </div>
+    {% endif %} {% if content_based_rec is not none and not
+    content_based_rec.empty %}
+    <div class="container mt-5">
+      <h2 class="text-center mb-4">Recommended Products</h2>
+      <div class="row mt-4">
+        {% for index, product in content_based_rec.iterrows() %}
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+          <div class="card">
+            <img
+              src="{{ product['ImageURL'].split('|')[0].strip() }}"
+              class="card-img-top"
+              alt="{{ product['Name'] }}"
+              style="height: 200px"
+              onerror="this.src='{{ product['ImageURL'].split('|')[1].strip() if '|' in product['ImageURL'] else 'path_to_default_image.jpg' }}'"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{ truncate(product['Name'],12) }}</h5>
+              <p class="card-text">Brand: {{ product['Brand'] }}</p>
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#productModal{{ index }}"
+              >
+                Buy Now
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="productModal{{ index }}"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="productModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="productModalLabel">
+                  {{ product['Name'] }}
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-md-4">
+                    <img
+                      src="{{ product['ImageURL'].split('|')[0].strip() }}"
+                      class="img-fluid"
+                      alt="{{ product['Name'] }}"
+                      style="height: 200px"
+                      onerror="this.src='{{ product['ImageURL'].split('|')[1].strip() if '|' in product['ImageURL'] else 'static/img/img_1.jpg' }}'"
+                    />
+                  </div>
+                  <div class="col-md-8">
+                    <!--                  <p><strong>Product Id:</strong> {{ product['ID'] }}</p>-->
+                    <p><strong>Brand:</strong> {{ product['Brand'] }}</p>
+                    <p>
+                      <strong>Review Count:</strong> {{ product['ReviewCount']
+                      }}
+                    </p>
+                    <p><strong>Rating:</strong> {{ product['Rating'] }}</p>
+                    <p><strong>Price:</strong> {{ random_price }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="button" class="btn btn-primary">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Bootstrap modal for sign up -->
+    <div
+      class="modal fade"
+      id="signupModal"
+      tabindex="-1"
+      aria-labelledby="signupModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="signupModalLabel">Sign Up</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form action="/signup" method="post">
+              <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="username"
+                  name="username"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  name="password"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">RE-Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="repassword"
+                  name="repassword"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Sign Up</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap modal for sign in -->
+    <div
+      class="modal fade"
+      id="signinModal"
+      tabindex="-1"
+      aria-labelledby="signinModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="signinModalLabel">Sign In</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form action="/signin" method="post">
+              <div class="mb-3">
+                <label for="signinUsername" class="form-label">Username</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="signinUsername"
+                  name="signinUsername"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="signinPassword" class="form-label">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="signinPassword"
+                  name="signinPassword"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Sign In</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--footer-->
+    <footer class="footer bg-dark text-white mt-5">
+      <div class="container py-4">
+        <div class="row">
+          <div class="col-md-3 col-sm-6 mb-4">
+            <h5>About Us</h5>
+            <p>
+              This is all about the products that we sell at our trinity
+              college's pasal. We are recommending it so that buyers can get
+              that easily.
+            </p>
+          </div>
+          <div class="col-md-3 col-sm-6 mb-4">
+            <h5>Quick Links</h5>
+            <ul class="list-unstyled">
+              <li><a href="about" class="text-white">About</a></li>
+              <li><a href="services" class="text-white">Services</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3 col-sm-6 mb-4">
+            <h5>Contact Us</h5>
+            <address>
+              <strong>Hamro Pasal</strong><br />
+              Dillibazar, Kathmandu<br />
+              Nepal<br />
+              <i class="fas fa-phone"></i> Phone: +977 9860931631<br />
+              <i class="fas fa-envelope"></i> Email: rojanghimire99@gmail.com
+            </address>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-center">
+            <hr class="bg-light" />
+            <p class="mb-0">© Hamro-Pasal All Rights Reserved.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+  <script>
+    function showSuggestions() {
+      var query = document.getElementById("searchBar").value;
+      console.log("Value is: ", query);
+      if (query.length >= 1) {
+        // Only show suggestions if query length is greater than or equal to 2
+        fetch(`/suggestions?query=${query}`)
+          .then((response) => response.json())
+          .then((data) => {
+            let suggestionsDiv = document.getElementById("suggestions");
+            suggestionsDiv.innerHTML = ""; // Clear previous suggestions
+            if (data.suggestions.length > 0) {
+              data.suggestions.forEach(function (suggestion) {
+                var suggestionElement = document.createElement("div");
+                suggestionElement.textContent = suggestion;
+                suggestionElement.classList.add("suggestion-item");
+
+                // Add click event to populate search bar with selected suggestion
+                suggestionElement.addEventListener("click", function () {
+                  document.getElementById("searchBar").value = suggestion;
+                  suggestionsDiv.innerHTML = ""; // Clear suggestions after selection
+                  suggestionsDiv.style.display = "none"; // Hide suggestions
+                });
+
+                suggestionsDiv.appendChild(suggestionElement);
+              });
+              suggestionsDiv.style.display = "block"; // Show suggestions
+            } else {
+              suggestionsDiv.style.display = "none"; // Hide suggestions if no match
+            }
+          });
+      } else {
+        document.getElementById("suggestions").style.display = "none";
+      }
+    }
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</html>

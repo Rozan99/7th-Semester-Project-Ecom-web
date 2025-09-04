@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>category</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #222629;
+        color: #fcc4ce;
+      }
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      .categories {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        width: 80%;
+        padding: 20px;
+      }
+
+      .category {
+        flex: 1 1 23%;
+        max-width: 23%;
+        background-color: #6b6e70;
+        color: #fcc4ce;
+        padding: 10px;
+        border: 1px solid #474b4f;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(252, 196, 206, 0.3);
+        transition: transform 0.4s, box-shadow 0.4s;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-left: 5vw;
+        height: 35vh;
+      }
+      .delete {
+        background-color: #f58f7c;
+      }
+      .delete:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        background-color: #fcc4ce;
+      }
+
+      .category-button {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+      }
+
+      .delete {
+        transition: transform 0.4s, box-shadow 0.4s;
+        padding: 8px;
+        font-size: 1.2rem;
+      }
+    </style>
+  </head>
+  <body>
+    {% include 'admin/adminheader.html' %} {% if result %}
+    <div class="container">
+      {% include 'admin/adminsidebar.html' %}
+
+      <div class="categories">
+        {% for category in result %}
+        <div class="category">
+          <span style="margin: 0 auto"><h2>{{ category.Categories }}</h2></span>
+          <div class="category-button">
+            <form action="deletecategory" method="post">
+              <input
+                type="hidden"
+                name="productname"
+                value="{{ category.Categories }}"
+              />
+              <input type="hidden" name="productid" value="{{ category.id }}" />
+              <button type="submit" class="delete">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </body>
+</html>

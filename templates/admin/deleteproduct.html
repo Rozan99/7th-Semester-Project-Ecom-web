@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delete Product</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #222629; /* dark background */
+        color: #fcc4ce; /* light pink text */
+        padding: 20px;
+    }
+    h2, h3 {
+        color: #f58f7c; /* coral headers */
+        margin-bottom: 15px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 30px;
+        background-color: #474b4f; /* medium gray table background */
+        color: #fcc4ce;
+    }
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #6b6e70; /* gray borders */
+    }
+    th {
+        background-color: #4f4f51; /* dark gray header */
+        color: #fcc4ce;
+    }
+    tr:nth-child(even) {
+        background-color: #6b6e70; /* alternating row color */
+    }
+    .deleted {
+        background-color: #f58f7c !important; /* coral highlight for deleted */
+        color: #222629;
+        font-weight: bold;
+    }
+    .message {
+        padding: 12px;
+        margin-bottom: 20px;
+        border-radius: 6px;
+        background-color: #474b4f; /* message background */
+        color: #fcc4ce;
+        border: 1px solid #6b6e70;
+    }
+    .message.error {
+        background-color: #fcc4ce;
+        color: #222629;
+        border-color: #f58f7c;
+    }
+    button {
+        background-color: #f58f7c; /* coral button */
+        color: #222629;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    button:hover {
+        background-color: #fcc4ce;
+        color: #222629;
+    }
+</style>
+</head>
+<body>
+
+<h2>Delete Product Result</h2>
+
+{% if pname %}
+    <div class="message">
+        Product <strong>{{ pname }}</strong> has been deleted from <strong>{{ table }}</strong>.
+    </div>
+{% else %}
+    <div class="message error">
+        Product not found: <strong>{{ pid }}</strong>
+    </div>
+{% endif %}
+
+<h3>Products Table</h3>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Actions</th>
+    </tr>
+    {% for p in products %}
+    <tr {% if table == 'products' and pid == p.productId|string %}class="deleted"{% endif %}>
+        <td>{{ p.productId }}</td>
+        <td>{{ p.pname }}</td>
+        <td>
+            <form action="{{ url_for('delete') }}" method="post" style="display:inline;">
+                <input type="hidden" name="productid" value="{{ p.productId }}">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h3>Display Products Table</h3>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Actions</th>
+    </tr>
+    {% for dp in displayproducts %}
+    <tr {% if table == 'displayproduct' and pname and pname.lower() == dp.pname.lower() %}class="deleted"{% endif %}>
+        <td>{{ dp.pname }}</td>
+        <td>
+            <form action="{{ url_for('delete') }}" method="post" style="display:inline;">
+                <input type="hidden" name="productid" value="{{ dp.pname }}">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shopping Cart - Hamro Pasal</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Georgia", serif;
+        background: linear-gradient(
+          135deg,
+          #8b4513 0%,
+          #a0522d 25%,
+          #2f1b14 75%,
+          #1a1a1a 100%
+        );
+        min-height: 100vh;
+        padding: 20px 0;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .page-title {
+        text-align: center;
+        color: #f5f5dc;
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        animation: fadeInDown 0.8s ease-out;
+      }
+
+      .cart-item {
+        background: linear-gradient(145deg, #f5f5dc, #fffdd0);
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2),
+          0 5px 15px rgba(0, 0, 0, 0.1);
+        margin-bottom: 25px;
+        padding: 25px;
+        display: flex;
+        align-items: center;
+        gap: 25px;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        animation: slideInUp 0.6s ease-out;
+        animation-fill-mode: both;
+      }
+
+      .cart-item:nth-child(even) {
+        animation-delay: 0.1s;
+      }
+
+      .cart-item:nth-child(odd) {
+        animation-delay: 0.2s;
+      }
+
+      .cart-item::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        transition: left 0.6s;
+      }
+
+      .cart-item:hover::before {
+        left: 100%;
+      }
+
+      .cart-item:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25),
+          0 10px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .cart-img {
+        flex-shrink: 0;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s ease;
+      }
+
+      .cart-img:hover {
+        transform: scale(1.05);
+      }
+
+      .cart-img img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.3s ease;
+      }
+
+      .product-details {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .product-details p {
+        margin-bottom: 12px;
+        font-size: 1.1rem;
+        color: #2f1b14;
+        line-height: 1.6;
+      }
+
+      .product-details strong {
+        color: #8b4513;
+        font-weight: 600;
+      }
+
+      .form-controls {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        min-width: 200px;
+      }
+
+      .quantity-control {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(139, 69, 19, 0.1);
+        padding: 10px 15px;
+        border-radius: 12px;
+        border: 2px solid rgba(139, 69, 19, 0.2);
+      }
+
+      .quantity-control strong {
+        color: #8b4513;
+        font-weight: 600;
+      }
+
+      .quantity-input {
+        width: 70px;
+        padding: 8px 12px;
+        border: 2px solid #d2b48c;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #2f1b14;
+        background: #fffdd0;
+        transition: all 0.3s ease;
+      }
+
+      .quantity-input:focus {
+        outline: none;
+        border-color: #8b4513;
+        box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.2);
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 15px;
+      }
+
+      .btn {
+        padding: 12px 25px;
+        border: none;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        min-width: 120px;
+      }
+
+      .btn::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+      }
+
+      .btn:active::before {
+        width: 300px;
+        height: 300px;
+      }
+
+      .btn-checkout {
+        background: linear-gradient(135deg, #228b22, #32cd32);
+        color: white;
+        box-shadow: 0 8px 20px rgba(34, 139, 34, 0.3);
+      }
+
+      .btn-checkout:hover {
+        background: linear-gradient(135deg, #32cd32, #228b22);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px rgba(34, 139, 34, 0.4);
+      }
+
+      .btn-remove {
+        background: linear-gradient(135deg, #dc143c, #ff6347);
+        color: white;
+        box-shadow: 0 8px 20px rgba(220, 20, 60, 0.3);
+      }
+
+      .btn-remove:hover {
+        background: linear-gradient(135deg, #ff6347, #dc143c);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px rgba(220, 20, 60, 0.4);
+      }
+
+      .empty-cart {
+        text-align: center;
+        padding: 60px 20px;
+        background: linear-gradient(145deg, #f5f5dc, #fffdd0);
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        animation: fadeIn 0.8s ease-out;
+      }
+
+      .empty-cart h5 {
+        font-size: 2rem;
+        color: #8b4513;
+        margin-bottom: 20px;
+      }
+
+      .empty-cart p {
+        font-size: 1.2rem;
+        color: #2f1b14;
+        opacity: 0.8;
+      }
+
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideInUp {
+        from {
+          opacity: 0;
+          transform: translateY(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .cart-item {
+          flex-direction: column;
+          text-align: center;
+          gap: 20px;
+        }
+
+        .cart-img img {
+          width: 150px;
+          height: 150px;
+        }
+
+        .product-details {
+          min-width: auto;
+        }
+
+        .form-controls {
+          width: 100%;
+          min-width: auto;
+        }
+
+        .action-buttons {
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .btn {
+          width: 100%;
+        }
+
+        .page-title {
+          font-size: 2rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 0 10px;
+        }
+
+        .cart-item {
+          padding: 20px;
+          margin-bottom: 20px;
+        }
+
+        .page-title {
+          font-size: 1.8rem;
+          margin-bottom: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    {% include 'heads.html' %}
+
+    <div class="container">
+      <h1 class="page-title">Your Shopping Cart</h1>
+
+      {% if not cartdata %}
+      <div class="empty-cart">
+        <h5>Your Cart is Empty</h5>
+        <p>Add some amazing products to get started!</p>
+      </div>
+      {% else %} {% for value in cartdata %}
+      <div class="cart-item">
+        <div class="cart-img">
+          <img src="{{ value.image }}" alt="{{ value.pname }}" />
+        </div>
+
+        <div class="product-details">
+          <p><strong>Product:</strong> {{ value.pname }}</p>
+          <p><strong>Price:</strong> ${{ value.price }}</p>
+        </div>
+
+        <div class="form-controls">
+          <div class="quantity-control">
+            <strong>Quantity:</strong>
+            <input
+              type="number"
+              class="quantity-input"
+              value="{{ value.quantity }}"
+              min="1"
+              onchange="updateHiddenQuantity(this, '{{ value.pid }}')"
+              data-pid="{{ value.pid }}"
+            />
+          </div>
+
+          <div class="action-buttons">
+            <form action="/checkout" method="post" style="display: inline">
+              <input type="hidden" name="pid" value="{{ value.pid }}" />
+              <input type="hidden" name="pname" value="{{ value.pname }}" />
+              <input type="hidden" name="price" value="{{ value.price }}" />
+              <input
+                type="hidden"
+                name="quantity"
+                value="{{ value.quantity }}"
+                id="hidden-quantity-{{ value.pid }}"
+              />
+              <input type="hidden" name="image" value="{{ value.image }}" />
+              <button class="btn btn-checkout" type="submit">Checkout</button>
+            </form>
+
+            <form action="/removeItem" method="post" style="display: inline">
+              <input type="hidden" value="{{ value.pid }}" name="pid" />
+              <button class="btn btn-remove" type="submit">Remove</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      {% endfor %} {% endif %}
+    </div>
+
+    {% include 'foots.html' %}
+
+    <script>
+      function updateHiddenQuantity(inputField, pid) {
+        const hiddenQuantityInput = document.querySelector(
+          `#hidden-quantity-${pid}`
+        );
+
+        if (hiddenQuantityInput) {
+          hiddenQuantityInput.value = inputField.value;
+
+          // Add visual feedback
+          inputField.style.transform = "scale(1.1)";
+          setTimeout(() => {
+            inputField.style.transform = "scale(1)";
+          }, 200);
+        } else {
+          console.error(`Hidden input for PID ${pid} not found.`);
+        }
+      }
+
+      // Add loading animation to buttons
+      document.querySelectorAll(".btn").forEach((button) => {
+        button.addEventListener("click", function () {
+          this.style.transform = "scale(0.95)";
+          setTimeout(() => {
+            this.style.transform = "";
+          }, 150);
+        });
+      });
+
+      // Stagger animation for cart items
+      document.querySelectorAll(".cart-item").forEach((item, index) => {
+        item.style.animationDelay = `${index * 0.1}s`;
+      });
+    </script>
+  </body>
+</html>

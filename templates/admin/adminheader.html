@@ -1,0 +1,43 @@
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .nav {
+    height: 8vh;
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+    font-size: 2rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, #222629, #474b4f, #6b6e70);
+    border-bottom: 2px solid #fcc4ce;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Gradient text effect */
+  .nav a {
+    text-decoration: none;
+    font-size: 1.8rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, #fcc4ce, #f58f7c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: transform 0.3s ease, letter-spacing 0.3s ease;
+  }
+
+  /* Hover effect */
+  .nav a:hover {
+    transform: scale(1.05);
+    letter-spacing: 2px;
+    text-shadow: 0 0 8px rgba(245, 143, 124, 0.7);
+  }
+</style>
+
+<nav class="nav">
+  <a href="/admin">
+    <h3>Admin</h3>
+  </a>
+</nav>

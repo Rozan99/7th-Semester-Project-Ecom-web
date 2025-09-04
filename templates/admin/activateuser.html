@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>User Activated</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(135deg, #222629, #474b4f, #6b6e70);
+        color: #fff;
+      }
+
+      /* Layout */
+      .infor {
+        display: flex;
+        flex: 1;
+      }
+
+      /* Sidebar Placeholder (adminsidebar.html) */
+      .sidebar {
+        width: 220px;
+        background: rgba(34, 38, 41, 0.95);
+        padding: 20px;
+        border-right: 2px solid rgba(255, 255, 255, 0.1);
+      }
+
+      /* Content */
+      .content {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      /* Activation Message Card */
+      .card {
+        background: linear-gradient(135deg, #fcc4ce, #f58f7c);
+        color: #222629;
+        padding: 40px 60px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        animation: fadeIn 1s ease-in-out;
+      }
+
+      .card h1 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+      }
+
+      .card p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+      }
+
+      /* Simple Animation */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    {% include './admin/adminheader.html' %}
+    <div class="infor">
+      {% include './admin/adminsidebar.html' %}
+
+      <div class="content">
+        <div class="card">
+          <h1>User Activated!!</h1>
+          <p>The account has been successfully activated.</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

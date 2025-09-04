@@ -1,0 +1,162 @@
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+/>
+
+<style>
+  /* Modal backdrop with creamy texture */
+  .modal-backdrop.show {
+    background: #fff5e6; /* creamy color */
+    opacity: 0.95;
+  }
+
+  /* Rounded modal with shadow */
+  #signinModal .modal-content {
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    background: linear-gradient(145deg, #a67c52, #8b5e3c);
+    color: #fff;
+  }
+
+  /* Modal header */
+  #signinModal .modal-header {
+    background: linear-gradient(90deg, #8b5e3c, #5c3a21);
+    color: #fff;
+    border-bottom: none;
+  }
+
+  /* Close button in red */
+  #signinModal .close i {
+    color: #ff4d4d;
+    font-size: 1.2rem;
+    transition: transform 0.2s, color 0.2s;
+  }
+  #signinModal .close i:hover {
+    transform: rotate(90deg);
+    color: #cc0000;
+  }
+
+  /* Modal body */
+  #signinModal .modal-body {
+    background-color: #f9f2e7; /* creamy light interior */
+    padding: 30px;
+    color: #4a2f1d;
+  }
+
+  /* Labels */
+  #signinModal .form-label {
+    font-weight: 500;
+    color: #5c3a21;
+  }
+
+  /* Input fields */
+  #signinModal .form-control {
+    border: 1px solid #d1bfa7;
+    border-radius: 8px;
+    padding: 10px 15px;
+    transition: all 0.3s;
+    background-color: #fff6f0;
+    color: #4a2f1d;
+  }
+  #signinModal .form-control:focus {
+    border-color: #8b5e3c;
+    box-shadow: 0 0 8px rgba(139, 94, 60, 0.4);
+  }
+
+  /* Submit button */
+  #signinModal .btn-primary {
+    background: linear-gradient(90deg, #8b5e3c, #5c3a21);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+    color: #fff;
+    transition: all 0.3s;
+  }
+  #signinModal .btn-primary:hover {
+    background: linear-gradient(90deg, #5c3a21, #3e1f0f);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(92, 58, 33, 0.4);
+  }
+
+  /* Form spacing */
+  #signinModal .mb-3 {
+    margin-bottom: 20px;
+  }
+</style>
+
+<!-- Signin Modal -->
+<div
+  class="modal fade"
+  id="signinModal"
+  tabindex="-1"
+  aria-labelledby="signinModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="signinModalLabel">Sign In</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Error or success message -->
+        {% if signin_error %}
+        <div class="alert alert-danger text-center">{{ signin_error }}</div>
+        {% endif %} {% if signin_success %}
+        <div class="alert alert-success text-center">{{ signin_success }}</div>
+        {% endif %}
+
+        <form action="/signin" method="post">
+          <div class="mb-3">
+            <label for="signinUsername" class="form-label">Username</label>
+            <input
+              type="text"
+              class="form-control"
+              id="signinUsername"
+              name="signinUsername"
+              value="{{ request.form.signinUsername or '' }}"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="signinPassword" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="signinPassword"
+              name="signinPassword"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Sign In</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Auto-open modal if there is an error or success -->
+{% if signin_error or signin_success %}
+<script>
+  $(document).ready(function () {
+    $("#signinModal").modal("show");
+  });
+</script>
+{% endif %}
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

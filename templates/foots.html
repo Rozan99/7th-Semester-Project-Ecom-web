@@ -1,0 +1,167 @@
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+  }
+
+  .footer {
+    /* Updated background to match ecommerce gradient theme */
+    background: linear-gradient(135deg, #8b4513 0%, #654321 50%, #2f1b14 100%);
+    color: #f5f5dc;
+    padding: 20px 0;
+    margin-top: 30px;
+    font-family: "Georgia", serif;
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .elements {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 20px;
+    padding: 0 20px;
+  }
+
+  .about,
+  .links,
+  .contact {
+    margin-top: 20px;
+    max-width: 300px;
+    /* Added cream background containers */
+    background: rgba(245, 245, 220, 0.1);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(245, 245, 220, 0.2);
+  }
+
+  .about h3,
+  .links h3,
+  .contact h3 {
+    /* Updated heading colors to cream */
+    color: #f5f5dc;
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .about p {
+    line-height: 1.6;
+    font-size: 14px;
+    /* Updated text color */
+    color: #f5f5dc;
+  }
+
+  .links ul,
+  .contact ul {
+    padding: 0;
+  }
+
+  .links li,
+  .contact li {
+    list-style-type: none;
+    margin: 8px 0;
+  }
+
+  .links a {
+    text-decoration: none;
+    /* Updated link colors to match brown theme */
+    color: #d2b48c;
+    transition: all 0.3s ease;
+    font-weight: 500;
+  }
+
+  .links a:hover {
+    /* Updated hover color */
+    color: #f5f5dc;
+    text-shadow: 0 0 5px rgba(245, 245, 220, 0.5);
+  }
+
+  .contact li {
+    font-size: 14px;
+    /* Updated contact text color */
+    color: #f5f5dc;
+  }
+
+  .line {
+    width: 75%;
+    height: 3px;
+    /* Updated line color to cream */
+    background: linear-gradient(90deg, transparent, #f5f5dc, transparent);
+    margin-inline: auto;
+  }
+
+  .rights {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    padding-bottom: 20px;
+    font-size: 14px;
+    /* Updated rights text color */
+    color: #f5f5dc;
+  }
+
+  .about h3 {
+    font-family: "Georgia", serif;
+    font-size: 18px;
+    font-style: italic;
+  }
+
+  .links a {
+    font-family: "Georgia", serif;
+    font-size: 14px;
+    text-decoration: none;
+  }
+
+  /* Added responsive design */
+  @media (max-width: 768px) {
+    .elements {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .about,
+    .links,
+    .contact {
+      max-width: 90%;
+      text-align: center;
+    }
+  }
+</style>
+
+<footer class="footer">
+  <div class="elements">
+    <div class="about">
+      <h3>About us</h3>
+      <p>
+        Hello all we get this website to recommend you the products that you
+        might need!!
+      </p>
+    </div>
+    <div class="links">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="/about">About</a></li>
+        <li><a href="/categories">Categories</a></li>
+      </ul>
+    </div>
+    <div class="contact">
+      <h3>Contact Us</h3>
+      <ul>
+        <li>Dillibazar, Kathmandu, Nepal</li>
+        <li>Phone: +977 9860931631</li>
+        <li>Email: rojanghimire99@gmail.com</li>
+      </ul>
+    </div>
+  </div>
+  <div style="margin-top: 5vh">
+    <div class="line"></div>
+  </div>
+  <div class="rights">
+    <p>© Hamro-Pasal. All Rights Reserved.</p>
+  </div>
+</footer>
